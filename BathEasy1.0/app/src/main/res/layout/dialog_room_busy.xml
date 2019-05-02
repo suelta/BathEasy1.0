@@ -105,6 +105,9 @@
                 android:layout_height="wrap_content"
                 android:text="预约"
                 android:textColor="#FFFFFF"
+                android:textSize="@dimen/font_medium_size"
+                android:gravity="center"
+                android:padding="@dimen/medium_margin"
                 android:background="#06b0f4"
                 android:layout_margin="@dimen/small_margin"/>
             <Button
@@ -112,6 +115,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="返回"
+                android:textSize="@dimen/font_medium_size"
+                android:gravity="center"
+                android:padding="@dimen/medium_margin"
                 android:textColor="#FFFFFF"
                 android:background="#06b0f4"
                 android:layout_margin="@dimen/small_margin"/>

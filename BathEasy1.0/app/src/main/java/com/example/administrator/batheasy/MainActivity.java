@@ -14,16 +14,14 @@ import android.widget.Toast;
 import com.example.administrator.batheasy.Fragment.Fragment_bath;
 import com.example.administrator.batheasy.Fragment.Fragment_email;
 import com.example.administrator.batheasy.Fragment.Fragment_info;
-import com.example.administrator.batheasy.bean.BathRoom;
-import com.example.administrator.batheasy.bean.CardInfo;
-import com.example.administrator.batheasy.bean.UserInfo;
+import com.example.administrator.batheasy.bean1.BathHouse;
+import com.example.administrator.batheasy.bean1.UserInfor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    UserInfo userInfo;  //个人信息
-    CardInfo cardInfo;  //卡信息
-    ArrayList<BathRoom> alRoom; //房间信息
+    UserInfor userInfo;  //个人信息
+    List<BathHouse> alRoom; //房间信息
     int[] bottomIcon = {R.id.bottom_icon_bath,R.id.bottom_icon_email,R.id.bottom_icon_info};
     int[] bottomIconBlue = {R.drawable.icon_bottom_bash_blue,R.drawable.icon_bottom_email_blue,R.drawable.icon_bottom_info_blue};
     int[] bottomIconGray = {R.drawable.icon_bottom_bash_gray,R.drawable.icon_bottom_email_gray,R.drawable.icon_bottom_info_gray};
@@ -38,11 +36,10 @@ public class MainActivity extends AppCompatActivity {
          */
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("initbundle");
-        userInfo = (UserInfo) bundle.getSerializable("userinfo");
-        cardInfo = (CardInfo) bundle.getSerializable("cardinfo");
-        alRoom = (ArrayList<BathRoom>) bundle.getSerializable("roominfo");
+        userInfo = (UserInfor) bundle.getSerializable("userinfo");
+        alRoom = (List<BathHouse>) bundle.getSerializable("bathhouse");
 
-        Log.w("MainActivity","tel:"+userInfo.getUTel()+"card:"+cardInfo.getCBalance());
+        Log.w("MainActivity","tel:"+userInfo.getUTel());
 
         /*
         给底部的组件设置监听器
@@ -61,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         imageViewBath.setOnClickListener(l);
         imageViewInfo.setOnClickListener(l);
         imageViewEmail.setOnClickListener(l);
-
-
     }
 
     View.OnClickListener l = new View.OnClickListener(){
@@ -100,27 +95,20 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public UserInfo getUserInfo() {
+    public UserInfor getUserInfo() {
         return userInfo;
     }
 
-    public void setUserInfo(UserInfo userInfo) {
+    public void setUserInfor(UserInfor userInfo) {
         this.userInfo = userInfo;
     }
 
-    public CardInfo getCardInfo() {
-        return cardInfo;
-    }
 
-    public void setCardInfo(CardInfo cardInfo) {
-        this.cardInfo = cardInfo;
-    }
-
-    public ArrayList<BathRoom> getAlRoom() {
+    public List<BathHouse> getAlRoom() {
         return alRoom;
     }
 
-    public void setAlRoom(ArrayList<BathRoom> alRoom) {
+    public void setAlRoom(List<BathHouse> alRoom) {
         this.alRoom = alRoom;
     }
 }

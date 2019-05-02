@@ -1,24 +1,18 @@
 package com.example.administrator.batheasy.MyInfo;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.administrator.batheasy.R;
-import com.example.administrator.batheasy.bean.UserInfo;
-
-import java.lang.annotation.Native;
+import com.example.administrator.batheasy.bean1.UserInfor;
 
 public class MyinfoActivity extends AppCompatActivity {
-    private UserInfo userInfo;
+    private UserInfor userInfo;
     private TextView tv_name;
     private TextView tv_sex;
     private TextView tv_tel;
@@ -55,7 +49,7 @@ public class MyinfoActivity extends AppCompatActivity {
     private void init(){
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra("info_bundle");
-        userInfo = (UserInfo) bundle.getSerializable("userinfo");
+        userInfo = (UserInfor) bundle.getSerializable("userinfo");
 
         tv_name = findViewById(R.id.myinfo_name);
         tv_sex = findViewById(R.id.myinfo_sex);

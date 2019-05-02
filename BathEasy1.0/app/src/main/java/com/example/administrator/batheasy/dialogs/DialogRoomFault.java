@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.batheasy.R;
-import com.example.administrator.batheasy.bean.BathRoom;
+import com.example.administrator.batheasy.bean1.BathRoom;
 
 public class DialogRoomFault extends Dialog {
     private BathRoom bathRoom;

@@ -28,7 +28,8 @@
         android:hint="Phone"
         android:layout_below="@+id/login_tv_tel"
         android:layout_marginLeft="@dimen/huge_margin"
-        android:layout_marginRight="@dimen/huge_margin" />
+        android:layout_marginRight="@dimen/huge_margin"
+        android:maxLines="1"/>
 
     <!--输入密码-->
     <TextView
@@ -47,14 +48,15 @@
         android:hint="Password"
         android:layout_below="@+id/login_tv_psw"
         android:layout_marginLeft="@dimen/huge_margin"
-        android:layout_marginRight="@dimen/huge_margin" />
+        android:layout_marginRight="@dimen/huge_margin"
+        android:maxLines="1"/>
 
     <!--登录按钮-->
     <Button
         android:id="@+id/login_bt_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
+        android:background="@color/color_button_blue"
         android:text="登  录"
         android:textColor="#FFF"
         android:textSize="@dimen/font_medium_size"
@@ -67,7 +69,7 @@
         android:id="@+id/login_bt_regitser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorBlue"
+        android:background="@color/color_button_blue"
         android:text="注   册"
         android:textColor="#FFF"
         android:textSize="@dimen/font_medium_size"

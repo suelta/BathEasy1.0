@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.batheasy.R;
-import com.example.administrator.batheasy.bean.BathRoom;
+import com.example.administrator.batheasy.bean1.BathRoom;
 
 public class DialogRoomFree extends Dialog {
     private BathRoom bathRoom;
@@ -20,8 +20,15 @@ public class DialogRoomFree extends Dialog {
     private Button bt_return;
     private TextView tv_roomid;
 
+    public Boolean getOrder() {
+        return isOrder;
+    }
+
+    private Boolean isOrder;
+
     public DialogRoomFree(@NonNull Context context) {
         super(context);
+        isOrder = false;
     }
 
     public DialogRoomFree(@NonNull Context context, BathRoom bathRoom) {
@@ -71,6 +78,7 @@ public class DialogRoomFree extends Dialog {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(),"预约成功了？",Toast.LENGTH_SHORT).show();
+                isOrder = true;
                 dismiss();
             }
         });

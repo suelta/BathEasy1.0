@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_Gray">
+
+    <TextView
+        android:id="@+id/success_tv_tips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:text="您前面还有x人"
+        android:textColor="#000"
+        android:textSize="@dimen/font_medium_size"
+        android:background="#FFF"
+        android:gravity="center"
+        android:padding="@dimen/small_margin"/>
+
+    <TableLayout
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/success_tv_tips"
+        android:stretchColumns="0"
+        android:background="#FFF">
+        <TableRow
+            android:background="@drawable/border_bottom_gray">
+            <TextView
+                android:text="待服务"
+                android:textColor="@color/color_green"
+                android:textSize="22sp"
+                android:gravity="center"
+                android:background="#FFF"
+                android:layout_margin="@dimen/big_margin"/>
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/border_bottom_gray">
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房间号"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:id="@+id/success_tv_roomid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="012"
+                    android:textSize="@dimen/font_medium_size"
+                    android:textColor="#000000"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/border_bottom_gray">
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="状态"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:id="@+id/success_tv_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="使用中"
+                    android:textSize="@dimen/font_medium_size"
+                    android:textColor="#000000"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:background="@drawable/border_bottom_gray">
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="位置"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:id="@+id/success_tv_roomaddr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="武汉理工大学"
+                    android:textSize="@dimen/font_medium_size"
+                    android:textColor="#000000"
+                    android:layout_margin="@dimen/small_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/success_bt_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="取消预约"
+        android:textColor="#FFFFFF"
+        android:background="#06b0f4"
+        android:layout_margin="@dimen/big_margin"/>
+</RelativeLayout>

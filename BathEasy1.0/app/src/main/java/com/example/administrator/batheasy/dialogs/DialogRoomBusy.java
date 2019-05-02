@@ -2,7 +2,6 @@ package com.example.administrator.batheasy.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -12,7 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.batheasy.R;
-import com.example.administrator.batheasy.bean.BathRoom;
+import com.example.administrator.batheasy.bean1.BathRoom;
 
 public class DialogRoomBusy extends Dialog{
     private Button bt_return;
@@ -34,6 +33,8 @@ public class DialogRoomBusy extends Dialog{
     public interface DialogListener{
         void orderChange();
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +84,7 @@ public class DialogRoomBusy extends Dialog{
                 Toast.makeText(getContext(),"预约成功了？",Toast.LENGTH_SHORT).show();
 
                 listener.orderChange();
+
             }
         });
     }

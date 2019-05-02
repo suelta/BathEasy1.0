@@ -5,7 +5,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.administrator.batheasy"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -26,15 +26,16 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
+    implementation 'de.hdodenhof:circleimageview:2.0.0'
     //添加bomb
     implementation'cn.bmob.android:bmob-sdk:3.5.0'
   //  implementation 'cn.bmob.android:bmob-sdk:3.5.9'
+    implementation 'com.github.HotBitmapGG:CreditSesameRingView:V1.0.4'
 
 
 
 
     //
     implementation 'com.android.support:gridlayout-v7:25.+'
-    implementation 'de.hdodenhof:circleimageview:2.0.0'
+
 }

@@ -14,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.administrator.batheasy.Accessory.LinkHelper;
+import com.example.administrator.batheasy.Accessory.LinkServer;
+import com.example.administrator.batheasy.InternalWithServer.ServerReturnInfo;
+import com.example.administrator.batheasy.InternalWithServer.UserOrderAsk;
 import com.example.administrator.batheasy.MainActivity;
 import com.example.administrator.batheasy.MyInfo.MyCreditActivity;
 import com.example.administrator.batheasy.MybillinfoAcitvity;
@@ -23,12 +27,15 @@ import com.example.administrator.batheasy.MyInfo.MyoptionActivity;
 import com.example.administrator.batheasy.MyInfo.MyquestionActivity;
 import com.example.administrator.batheasy.MyInfo.MysettingActivity;
 import com.example.administrator.batheasy.R;
-import com.example.administrator.batheasy.bean.CardInfo;
-import com.example.administrator.batheasy.bean.UserInfo;
+import com.example.administrator.batheasy.bean1.Card;
+import com.example.administrator.batheasy.bean1.UserInfor;
+import com.google.gson.Gson;
+
+import org.apache.mina.core.future.ConnectFuture;
 
 public class Fragment_info extends Fragment {
-    UserInfo userInfo;
-    CardInfo cardInfo;
+    UserInfor userInfo;
+    Card cardInfo;
     ImageView iv_touxiang;
     TextView tv_name;
     TextView tv_money;
@@ -43,8 +50,37 @@ public class Fragment_info extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getInfoServerPersonInfo();
         myinfoInit();
         myinfoEventInit();
+    }
+
+    private void getInfoServerPersonInfo(){
+        LinkServer linkServer = new LinkServer();
+        ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
+        if(connectFuture.isConnected()){
+            //查询个人信息
+            UserOrderAsk uoa = new UserOrderAsk();
+            uoa.setUTel(userInfo.getUTel());
+            uoa.setCharacter("user");
+            uoa.setCommand("查询用户和卡信息");
+            String jsonUserinfo = new Gson().toJson(uoa);
+            connectFuture.getSession().write(jsonUserinfo.toString());//发送json字符串
+
+            String clientInfo = LinkHelper.getClientInfo(linkServer);//获取返回的字符串
+            if(clientInfo.equals("")){
+                printLog("获取服务端查询用户和卡信息信息失败");
+            }else{
+                printLog("获取服务端查询用户和卡信息信息成功");
+                ServerReturnInfo sri = new Gson().fromJson(clientInfo,ServerReturnInfo.class);
+                userInfo = sri.getUser();
+                cardInfo = sri.getCard();
+            }
+        }
+    }
+
+    private void printLog(String info) {
+        Log.w("Fragment_info",info);
     }
 
     /* 初始化界面的相关值，如：余额等 */
@@ -83,6 +119,7 @@ public class Fragment_info extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MycardActivity.class);
+                intent.putExtra("cardinfo",cardInfo);
                 startActivity(intent);
             }
         });
@@ -101,6 +138,7 @@ public class Fragment_info extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MyCreditActivity.class);
+                intent.putExtra("userinfo",userInfo);
                 startActivity(intent);
             }
         });
@@ -119,6 +157,7 @@ public class Fragment_info extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MysettingActivity.class);
+                intent.putExtra("userinfo",userInfo);
                 startActivity(intent);
             }
         });
@@ -138,6 +177,5 @@ public class Fragment_info extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         userInfo = ((MainActivity)context).getUserInfo();
-        cardInfo =  ((MainActivity)context).getCardInfo();
     }
 }

@@ -4,11 +4,19 @@ import java.util.Date;
 
 public class UserRecharge extends Message {
 
+	private String UTel;
+	
 	private String CNo;
 	private String RWay;
 	private double RMoney;
 	private Date RTime;
 	
+	public String getUTel() {
+		return UTel;
+	}
+	public void setUTel(String uTel) {
+		UTel = uTel;
+	}
 	public String getCNo() {
 		return CNo;
 	}

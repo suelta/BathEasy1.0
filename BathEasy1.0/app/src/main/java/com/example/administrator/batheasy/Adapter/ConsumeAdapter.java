@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.administrator.batheasy.bean.Consume;
 import com.example.administrator.batheasy.R;
+import com.example.administrator.batheasy.bean.Consume;
 
 import java.util.List;
 

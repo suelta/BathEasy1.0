@@ -1,8 +1,8 @@
 package com.example.administrator.batheasy;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,15 +10,20 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.administrator.batheasy.Accessory.LinkServer;
 import com.example.administrator.batheasy.Accessory.SharedHelper;
-import com.example.administrator.batheasy.bean.UserInfo;
+import com.example.administrator.batheasy.InternalWithServer.ServerReturnRegisterMsg;
+import com.example.administrator.batheasy.InternalWithServer.UserRegister;
+import com.example.administrator.batheasy.bean1.UserInfor;
+import com.google.gson.Gson;
+
+import org.apache.mina.core.future.ConnectFuture;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
-import cn.bmob.v3.listener.SaveListener;
-import cn.bmob.v3.listener.UpdateListener;
+
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -41,6 +46,9 @@ public class RegisterActivity extends AppCompatActivity {
     private Button cancleBtn;
     private Button yanzhengBtn;
     private SharedHelper sh;//
+
+    private LinkServer linkServer;
+    private ConnectFuture connectFuture;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -61,6 +69,9 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     void  Register(){
+        linkServer = new LinkServer();
+        linkServer.start();
+
         phoneText2=(EditText)findViewById(R.id.register_et_phone);
         pwdText2=(EditText)findViewById(R.id.register_et_psw);
         surepdText=(EditText)findViewById(R.id.register_et_psw2);
@@ -108,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
                 school = spinner.getSelectedItem().toString();
                 name  = nameText.getText().toString();
 
-                if(telephone.equals("")||password.equals("")||password2.equals("") ||message.equals("")){
+                if(telephone.equals("")||password.equals("")||password2.equals("")){
                     Toast.makeText(getApplicationContext(), "请填写完整信息", LENGTH_SHORT).show();
                 } else{
                     if(!password.equals(password2)){
@@ -117,7 +128,53 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "两次密码输入不一致，请重新输入密码!", LENGTH_SHORT).show();
                     }
                     else{
-                        BmobSMS.verifySmsCode(phoneText2.getText().toString(), yanzhengText.getText().toString(), new UpdateListener() {
+                        UserRegister ur = new UserRegister();
+                        ur.setUName(name);
+                        ur.setUPwd(password);
+                        ur.setUTel(telephone);
+                        ur.setUSex(sex);
+                        ur.setUSchool(school);
+                        ur.setCharacter("user");
+                        ur.setCommand("注册");
+
+                        connectFuture = linkServer.getmConnectFuture();
+                        if (connectFuture != null && connectFuture.isConnected()) {//与服务器连接上
+                            Log.w("RegisterActivity","服务器连接成功");
+                            Gson gson = new Gson();
+                            String jsonUserinfo = gson.toJson(ur);
+                            connectFuture.getSession().write(jsonUserinfo.toString());//发送json字符串
+                            String clientInfo;
+                            long time1 = System.currentTimeMillis();
+                            while(true){
+                                clientInfo = linkServer.getClientInfo();//获取返回的字符串
+                                if(!clientInfo.equals("")){
+                                    break;
+                                }
+                                if(System.currentTimeMillis()-time1 > 10000){
+                                    break;
+                                }
+                            }
+
+                            Log.w("RegisterActivity","+++++++"+clientInfo);
+//{"character":"server","command":"注册结果","registerState":"注册成功"}
+                            ServerReturnRegisterMsg srrm= gson.fromJson(clientInfo,ServerReturnRegisterMsg.class);
+                            if(srrm.getRegisterState().equals("注册成功")){
+                                Log.w("RegisterActivity","注册成功！");
+                                Toast.makeText(RegisterActivity.this, "注册成功!", LENGTH_SHORT).show();
+                                finish();
+                            }else if(srrm.getRegisterState().equals("账号已存在")){
+                                Toast.makeText(RegisterActivity.this, "账号已存在!", LENGTH_SHORT).show();
+                            }else if(srrm.getRegisterState().equals("注册失败")){
+                                Toast.makeText(RegisterActivity.this, "注册失败!", LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(RegisterActivity.this, "服务器未响应", LENGTH_SHORT).show();
+                            }
+
+                        }
+
+
+
+                        /*BmobSMS.verifySmsCode(phoneText2.getText().toString(), yanzhengText.getText().toString(), new UpdateListener() {
                             @Override
                             public void done(BmobException e) {
                                 if(e==null){
@@ -125,6 +182,26 @@ public class RegisterActivity extends AppCompatActivity {
                                     // 实例化用户表更新或则添加时打开，查询时关闭
                                     //Q:这里的卡号还不知道如何确定？暂时定为空
                                     UserInfo us = new UserInfo(telephone,name,password,sex,school,"",100);
+                                    UserRegister ur = new UserRegister();
+                                    ur.setUName(name);
+                                    ur.setUPwd(password);
+                                    ur.setUTel(telephone);
+                                    ur.setUSex(sex);
+                                    ur.setUSchool(school);
+                                    ur.setCharacter("user");
+                                    ur.setCommand("注册");
+
+                                    connectFuture = linkServer.getmConnectFuture();
+                                    if (connectFuture != null && connectFuture.isConnected()) {//与服务器连接上
+                                        Log.w("RegisterActivity","服务器连接成功");
+                                        Gson gson = new Gson();
+                                        String jsonUserinfo = gson.toJson(ur);
+                                        connectFuture.getSession().write(jsonUserinfo.toString());//发送json字符串
+
+                                        String clientInfo = linkServer.getClientInfo();//获取返回的字符串
+                                    }
+
+                                    
                                     us.save(new SaveListener<String>() {//添加
                                         public void done(String s, BmobException e) {
                                             if (e == null) {
@@ -140,7 +217,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "验证码输入错误：" , LENGTH_SHORT).show();
                                 }
                             }
-                        });
+                        });*/
                     }
                 }
             }

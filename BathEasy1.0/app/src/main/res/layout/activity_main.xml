@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:stretchColumns="0,1,2"
-        >
+        android:background="@drawable/border_top_gray">
         <!--缺一个边框-->
         <TableRow
             android:layout_width="match_parent"

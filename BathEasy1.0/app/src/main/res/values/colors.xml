@@ -13,4 +13,7 @@
     <color name="colorQblue">#ED6C10</color>
     <color name="color_bg_DeepSkyBlue">#00BFFF</color>
     <color name="color_button_blue">#06b0f4</color>
+    <color name="color_green">#00FF00</color>
+    <color name="color_bg_dodgerblue">#1E90FF</color>
+    <color name="color_bg_gray2">#F0F3F6</color>
 </resources>

@@ -43,6 +43,18 @@
             android:name=".LoginActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
 
+        <activity
+            android:name=".dialogs.RoomBusyInfoActivity"
+            android:theme="@style/activity_styles"></activity>
+        <activity
+            android:name=".dialogs.RoomFreeInfoActivity"
+            android:theme="@style/activity_styles"></activity>
+        <activity
+            android:name=".dialogs.RoomFaultInfoActivity"
+            android:theme="@style/activity_styles"></activity>
+
+
+        <activity android:name=".SuccessOrderActivity"></activity>
     </application>
 
 </manifest>

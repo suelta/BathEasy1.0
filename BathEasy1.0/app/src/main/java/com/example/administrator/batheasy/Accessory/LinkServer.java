@@ -74,7 +74,8 @@ public class LinkServer extends Thread{
      * 初始化Mina配置信息
      */
     public void initConfig() {
-        mAddress = new InetSocketAddress("10.138.123.33", 9999);//连接地址,此数据可改成自己要连接的IP和端口号
+        clientInfo = new String();
+        mAddress = new InetSocketAddress("10.138.80.238", 9999);//连接地址,此数据可改成自己要连接的IP和端口号
         mConnection = new NioSocketConnector();// 创建连接
         // 设置读取数据的缓存区大小
         SocketSessionConfig socketSessionConfig = mConnection.getSessionConfig();
@@ -120,18 +121,15 @@ public class LinkServer extends Thread{
     public void connect1(){
         try {
             Log.w("LinkServer","connect开始");
-//            while (true) {
                 Log.w("LinkServer","尝试连接");
                 mConnectFuture = mConnection.connect();
                 mConnectFuture.awaitUninterruptibly();//一直等到他连接为止
                 mSession = mConnectFuture.getSession();//获取session对象
                 if (mSession != null && mSession.isConnected()) {
                     Log.w("LinkServer","连接成功");
-//                    break;
+                }else{
+                    Log.w("LinkServer","连接失败");
                 }
-//                sleep(1000);
-//                Thread.sleep(3000);//每隔三秒循环一次
-//            }
         } catch (Exception e) {//连接 异常
             Log.w("LinkServer","连接异常");
         }
@@ -168,7 +166,6 @@ public class LinkServer extends Thread{
         @Override
         public void messageReceived(IoSession session, Object message) throws Exception {
             Log.e("DefaultIOHandler", "接收到服务器端消息：" + message.toString());
-
             clientInfo = message.toString();
         }
 
@@ -179,5 +176,4 @@ public class LinkServer extends Thread{
 
         }
     }
-
 }

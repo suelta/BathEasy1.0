@@ -20,29 +20,11 @@ public class LoadActivity extends AppCompatActivity {
             public void run() {//延时time秒后，将运行如下代码
                 if(lag){
                     finish();
-                    Toast.makeText(LoadActivity.this , "wait 5s!" , Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(LoadActivity.this , LoginActivity.class);
                     startActivity(intent);
                 }
             }
         } , time);
-        /*Toast.makeText(LoadActivity.this , "hello!" , Toast.LENGTH_LONG).show();
-        Log.w("loadactivity","开始了loadactivity");
-        Thread myThread = new Thread(){
-            @Override
-            public void run() {
-                try {
-                    sleep(3000);
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-                    Log.w("loadactivity","进入了loadactivity");
-                    startActivity(intent);
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        myThread.start();*/
     }
 
 }

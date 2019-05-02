@@ -6,7 +6,6 @@ public class UserLogin extends Message {
 	private String UPwd;
 
 	public UserLogin(String UTel, String UPwd) {
-	    super();
 		this.UTel = UTel;
 		this.UPwd = UPwd;
 	}
