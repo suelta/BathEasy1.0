@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 
 import org.apache.mina.core.future.ConnectFuture;
 
+/* 浴室using界面 */
 public class RoomBusyInfoActivity extends AppCompatActivity{
     private Button bt_return;
     private TextView tv_roomid;
@@ -36,6 +37,7 @@ public class RoomBusyInfoActivity extends AppCompatActivity{
 
     private ServerReturnBathRoomState srbrs;
     private ServerReturnOrderMsg srom;
+
     int roomid = -1;
     private BathRoom bathRoom;
     private UserInfor userInfor;
@@ -43,6 +45,14 @@ public class RoomBusyInfoActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_room_busy);
+        init();
+
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init() {
         //初始化数据
         initData();
         //初始化组件
@@ -51,6 +61,9 @@ public class RoomBusyInfoActivity extends AppCompatActivity{
         initListener();
     }
 
+    /******************************************************************************
+     * 功能：初始化数据
+     *******************************************************************************/
     private void initData(){
         Intent intent = getIntent();
         roomid = intent.getIntExtra("roomid",-1);
@@ -58,6 +71,9 @@ public class RoomBusyInfoActivity extends AppCompatActivity{
         bathRoom = (BathRoom) intent.getSerializableExtra("bath_roominfo");
     }
 
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
     private void initView() {
         setContentView(R.layout.dialog_room_busy);
         // 设置窗口大小
@@ -84,6 +100,9 @@ public class RoomBusyInfoActivity extends AppCompatActivity{
 
     }
 
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
     private void initListener(){
         //给返回键设置监听
         bt_return.setOnClickListener(new View.OnClickListener() {

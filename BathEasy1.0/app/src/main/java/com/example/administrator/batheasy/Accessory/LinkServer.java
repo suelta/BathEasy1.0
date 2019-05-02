@@ -25,9 +25,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
 
-/*
-用来连接服务器
- */
+/* 用来连接服务器 */
 public class LinkServer extends Thread{
 
     public LinkServer(){ }
@@ -168,7 +166,6 @@ public class LinkServer extends Thread{
             Log.e("DefaultIOHandler", "接收到服务器端消息：" + message.toString());
             clientInfo = message.toString();
         }
-
 
         @Override
         public void sessionIdle(IoSession session, IdleStatus status) throws Exception {//客户端进入空闲状态.

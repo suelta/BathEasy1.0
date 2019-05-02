@@ -24,6 +24,7 @@ import com.google.gson.Gson;
 
 import org.apache.mina.core.future.ConnectFuture;
 
+/* 浴室Free界面 */
 public class RoomFreeInfoActivity extends AppCompatActivity{
     private BathRoom bathRoom;
     private Button bt_order;
@@ -38,9 +39,20 @@ public class RoomFreeInfoActivity extends AppCompatActivity{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_room_free);
+        init();
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init() {
         initData();
         initView();
     }
+
+    /******************************************************************************
+     * 功能：初始化数据
+     *******************************************************************************/
     private void initData(){
         Intent intent = getIntent();
         roomid = intent.getIntExtra("roomid",-1);
@@ -48,6 +60,9 @@ public class RoomFreeInfoActivity extends AppCompatActivity{
         userInfor = (UserInfor) intent.getSerializableExtra("userinfo");
     }
 
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
     private void initView() {
         // 设置窗口大小
         WindowManager windowManager = getWindow().getWindowManager();
@@ -69,6 +84,13 @@ public class RoomFreeInfoActivity extends AppCompatActivity{
             tv_roomid.setText(roomid+"");
         }
 
+        initListener();
+    }
+
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
+    private void initListener() {
         //给返回键设置监听
         bt_return.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +123,9 @@ public class RoomFreeInfoActivity extends AppCompatActivity{
         });
     }
 
+    /******************************************************************************
+     * 功能：给父Activity返回消息
+     *******************************************************************************/
     public void returninfo(){
         Intent intent = getIntent();
         if(isOrder){
@@ -111,6 +136,9 @@ public class RoomFreeInfoActivity extends AppCompatActivity{
         setResult(0x0004,intent);   //设置返回的信息给Fragemnt_bath
     }
 
+    /******************************************************************************
+     * 功能：获取服务器连接
+     *******************************************************************************/
     private void getInfoServer(){
         LinkServer linkServer = new LinkServer();
         ConnectFuture connectFuture= LinkHelper.getConn(linkServer);

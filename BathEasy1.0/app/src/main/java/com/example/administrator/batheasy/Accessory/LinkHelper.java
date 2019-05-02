@@ -7,7 +7,9 @@ import com.google.gson.Gson;
 import org.apache.mina.core.future.ConnectFuture;
 
 public class LinkHelper {
-    //反复获取返回的字符串
+    /******************************************************************************
+     * 功能：反复获取返回的字符串
+     *******************************************************************************/
     static public String getClientInfo(LinkServer linkServer){
         String clientInfo = "";
         long time1 = System.currentTimeMillis();
@@ -24,7 +26,9 @@ public class LinkHelper {
         return clientInfo;
     }
 
-    //连接到服务器并获取ConnectFuture
+    /******************************************************************************
+     * 功能：连接到服务器并获取ConnectFuture
+     *******************************************************************************/
     static public ConnectFuture getConn(LinkServer linkServer){
         if(linkServer == null){
             linkServer = new LinkServer();

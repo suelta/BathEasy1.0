@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.administrator.batheasy.R;
 import com.example.administrator.batheasy.bean1.BathRoom;
 
+/* 浴室不能用界面 */
 public class RoomFaultInfoActivity extends AppCompatActivity{
     private BathRoom bathRoom;
     private Button bt_return;
@@ -22,16 +23,28 @@ public class RoomFaultInfoActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        init();
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init() {
         initData();
         initView();
     }
-
+    /******************************************************************************
+     * 功能：初始化数据
+     *******************************************************************************/
     private void initData(){
         Intent intent = getIntent();
         roomid = intent.getIntExtra("roomid",-1);
         bathRoom = (BathRoom) intent.getSerializableExtra("bath_roominfo");
     }
 
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
     private void initView() {
         setContentView(R.layout.dialog_room_fault);
         // 设置窗口大小
@@ -51,7 +64,13 @@ public class RoomFaultInfoActivity extends AppCompatActivity{
         if(bathRoom != null){
             tv_roomid.setText(roomid+"");
         }
+        initListener();
+    }
 
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
+    private void initListener() {
         //给返回键设置监听
         bt_return.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.administrator.batheasy.R;
 
+/* 显示邮件的Fragment */
 public class Fragment_email extends Fragment {
     @Nullable
     @Override

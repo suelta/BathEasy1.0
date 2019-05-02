@@ -33,22 +33,18 @@ public class MyinfoActivity extends AppCompatActivity {
     private ImageView iv_alter3;    //性别的修改
     private ImageView iv_alter4;    //学校的修改
 
-    boolean isChange;
+    boolean isChange;               //标识是否被改变
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_myinfo);
-        /*if(NavUtils.getParentActivityName(MyinfoActivity.this)!=null){
-            getSupportActionBar().setDisplayShowTitleEnabled(true);     //设置向左的箭头
-        }*/
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeButtonEnabled(true);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("个人信息");
 
         init();
-//        initListenr();
     }
 
     @Override
@@ -57,7 +53,9 @@ public class MyinfoActivity extends AppCompatActivity {
         return super.onSupportNavigateUp();
     }
 
-    /* 界面初始化 */
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
     private void init(){
         isChange = false;
 
@@ -65,6 +63,10 @@ public class MyinfoActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra("info_bundle");
         userInfo = (UserInfor) bundle.getSerializable("userinfo");
 
+        initView();
+    }
+
+    private void initView() {
         tv_name = findViewById(R.id.myinfo_name);
         tv_sex = findViewById(R.id.myinfo_sex);
         tv_school = findViewById(R.id.myinfo_school);
@@ -81,8 +83,10 @@ public class MyinfoActivity extends AppCompatActivity {
         }
     }
 
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
     private void initListenr(){
-
         final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
         final EditText et = new EditText(this);
         iv_alter1.setOnClickListener(new View.OnClickListener() {
@@ -174,12 +178,13 @@ public class MyinfoActivity extends AppCompatActivity {
         });
     }
 
+    /******************************************************************************
+     * 功能：请求服务器，更新个人信息
+     *******************************************************************************/
     private void getInfoServerchangeinfo(){
         userInfo.setUName(tv_name.getText().toString());
         userInfo.setUSchool(tv_school.toString());
         userInfo.setUSex(tv_sex.getText().toString());
-
-
     }
 
 }

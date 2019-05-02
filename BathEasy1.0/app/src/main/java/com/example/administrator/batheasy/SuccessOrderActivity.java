@@ -30,6 +30,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* 预约成功界面 */
 public class SuccessOrderActivity extends AppCompatActivity {
     private BathRoom bathRoom;
     private UserInfor user;
@@ -52,18 +53,37 @@ public class SuccessOrderActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle("预约情况");
         Log.w("SuccessOrderAcitivity","进入了SuccessOrderAcitivity！");
-        Intent intent = getIntent();
-        user = (UserInfor) intent.getSerializableExtra("userinfo");
 
+        init();
+
+    }
+
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
+    private void initView() {
         tv_roomid = findViewById(R.id.success_tv_roomid);
         tv_state = findViewById(R.id.success_tv_state);
         tv_tips = findViewById(R.id.success_tv_tips);
         bt_cancel = findViewById(R.id.success_bt_cancel);
         tv_roomaddr = findViewById(R.id.success_tv_roomaddr);
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init(){
+        //通过intent获取数据
+        Intent intent = getIntent();
+        user = (UserInfor) intent.getSerializableExtra("userinfo");
 
         //连接服务器，获取当前房间的状态。（空闲，前面排队还有多少人，正在洗澡）
         getInfoServer();
-        init();
+
+        initView();
+        initData();
+        initListener();
+
         //根据服务器给出的状态就行不同的初始化
         switch (flag){
             case 0:isFree();break;
@@ -71,14 +91,12 @@ public class SuccessOrderActivity extends AppCompatActivity {
             case 2:isBathing();break;
             default:break;
         }
-
-
-
     }
 
-    //初始化基本信息
-    private void init(){
-//        printLog("initing");
+    /******************************************************************************
+     * 功能：初始化相关数据
+     *******************************************************************************/
+    private void initData() {
         tv_state.setText(srom.getOrderState()+"");
         tv_roomid.setText(srom.getRNo()+"");
         tv_roomaddr.setText(user.getUSchool());
@@ -87,12 +105,18 @@ public class SuccessOrderActivity extends AppCompatActivity {
         }else{
             bt_cancel.setTag(1);
         }
+    }
+
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
+    private void initListener() {
         bt_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if((int)(bt_cancel.getTag()) == 0){
-                    getInfoServer2();
                     //设置取消预约,反馈给服务器
+                    getInfoServercancel();
                     Toast.makeText(SuccessOrderActivity.this,"取消预约成功",Toast.LENGTH_SHORT).show();
                     //关闭当前页面
                     finish();
@@ -100,12 +124,13 @@ public class SuccessOrderActivity extends AppCompatActivity {
                     //设置取消按钮不可用
                     bt_cancel.setClickable(false);
                 }
-
             }
         });
     }
 
-    //查找房间状态，预约等相关信息
+    /******************************************************************************
+     * 功能：查找房间状态，预约等相关信息
+     *******************************************************************************/
     private void getInfoServer(){
         LinkServer linkServer = new LinkServer();
         ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
@@ -139,7 +164,10 @@ public class SuccessOrderActivity extends AppCompatActivity {
         }
     }
 
-    private void getInfoServer2(){
+    /******************************************************************************
+     * 功能：取消预约，向服务器发送请求
+     *******************************************************************************/
+    private void getInfoServercancel(){
         String strinfo = null;
         LinkServer linkServer = new LinkServer();
         ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
@@ -166,12 +194,16 @@ public class SuccessOrderActivity extends AppCompatActivity {
 
     }
 
-
+    /******************************************************************************
+     * 功能：打印Log.w信息
+     *******************************************************************************/
     private void printLog(String info) {
         Log.w("SuccessOrderActivity",info);
     }
 
-    //空闲状态的初始化
+    /******************************************************************************
+     * 功能：空闲状态页面的初始化
+     *******************************************************************************/
     private void isFree(){
         //这里应获取服务器传来的信息进行初始化
         String timeStr = srom.getTime();
@@ -203,10 +235,16 @@ public class SuccessOrderActivity extends AppCompatActivity {
         timer.start();  //启动倒计时
     }
 
+    /******************************************************************************
+     * 功能：排队状态页面的初始化
+     *******************************************************************************/
     private void isQueue(){
         tv_tips.setText("您前面还有"+srom.getQueueNum()+"人");
     }
 
+    /******************************************************************************
+     * 功能：正在洗浴状态页面的初始化
+     *******************************************************************************/
     private void isBathing(){
         tv_tips.setText("祝您还有一个良好的体验~");
     }

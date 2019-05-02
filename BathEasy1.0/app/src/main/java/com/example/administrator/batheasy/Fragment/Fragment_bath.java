@@ -60,17 +60,18 @@ import java.util.Map;
 
 import static com.example.administrator.batheasy.R.id.bath_spinner;
 
+/* 显示澡堂的Fragment */
 public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogListener {
     private GridView gridView;
-    private List<Map<String, Object>> dataList;
+    private Button buttonorder1;    private Spinner spinner;
+    private Fragment fragmentflag;
+
+
     private SimpleAdapter adapter;
     private String [] from={"img","text"};
     private int[] to={R.id.img,R.id.text};
-    private AlertDialog.Builder builder;
-    private Button buttonorder1;
-    private String Msge;
-    private Spinner spinner;
 
+    private List<Map<String, Object>> dataList;
     private ArrayAdapter<String> myAdaptertospinner; //用来初始化spinner
     private List<BathHouse> alHouse; //澡堂信息
     private List<BathRoom> alRoom; //浴室信息
@@ -82,21 +83,98 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
     private LinkServer linkServer;
     private ConnectFuture connectFuture;
     private Activity activityMain;
-    private Fragment fragmentflag;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         printLog("初始化");
         View view = inflater.inflate(R.layout.layout_bath,null);
-        gridView= view.findViewById(R.id.bath_gridview);
-        buttonorder1 = view.findViewById(R.id.button_order);
-        spinner = view.findViewById(bath_spinner);
+        init(view);
+
+        return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0x0001 && resultCode == 0x0002){
+            String isOrder = data.getStringExtra("isOrder");
+            if(isOrder.equals("true")){
+                buttonorder1.setText("我的预约");
+                buttonorder1.setTag(true);
+            }
+        }
+        if(requestCode == 0x0003 && resultCode == 0x0004){
+            String isOrder = data.getStringExtra("isOrder");
+            if(isOrder.equals("true")){
+                buttonorder1.setText("我的预约");
+                buttonorder1.setTag(true);
+            }
+        }
+    }
+
+    @Override
+    public void orderChange() {}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        printLog("在onstart里面");
+        initAdapterData();      //初始化Adapter数据
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        alHouse = ((MainActivity)context).getAlRoom();
+        userInfor = ((MainActivity)context).getUserInfo();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init(View view) {
+        initView(view);
+
+//        refresh(view);
         activityMain = getActivity();
-        fragmentflag = getFragmentManager().findFragmentById(R.id.main_fragment);
+
+        handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case 0x0011:{
+                        printLog("进入handler 0x0011");
+                        getInfoServerBathRoom();
+
+                        //更新界面
+                        initdatalist();
+                        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
+                        gridView.setAdapter(adapter);
+                        break;
+                    }
+                };
+            }
+        };
+
+        initAdapterData();      //初始化Adapter数据
+        InitLinstenr();
+        refreshOneMinute();
+    }
+
+    /******************************************************************************
+     * 功能：刷新
+     *******************************************************************************/
+    private void refresh(View view) {
         RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new BezierRadarHeader(getContext()).setEnableHorizontalDrag(true));
-//设置 Footer 为 球脉冲 样式
+        //设置 Footer 为球脉冲样式
         refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
        /* final RefreshLayout refreshLayout1 = refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -122,67 +200,22 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
             }
         });
-
-        handler = new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what){
-                    case 0x0011:{
-                        printLog("测试：handler里面有吗");
-                        getInfoServerBathRoom();
-                        /*LinkServer linkServer = new LinkServer();
-                        ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
-                        if(connectFuture.isConnected()){
-                            BathHouse bathHouse= alHouse.get(spinner.getSelectedItemPosition());
-                            UserGetBathRooms ugbr = new UserGetBathRooms();
-                            ugbr.setBNo(bathHouse.getBNo());
-                            ugbr.setUTel(userInfor.getUTel());
-                            ugbr.setCharacter("user");
-                            ugbr.setCommand("查询某澡堂所有澡间");
-                            String jsonUserinfo = new Gson().toJson("fds");
-                            connectFuture.getSession().write(jsonUserinfo.toString());//发送json字符串
-
-                            String clientInfo = LinkHelper.getClientInfo(linkServer);//获取返回的字符串
-                            if(clientInfo.equals("")){
-                                printLog("获取服务端信息失败");
-                            }else{
-                                printLog("获取服务端信息成功");
-                            }
-                        }*/
-
-                        //更新界面
-                        initdatalist();
-                        adapter=new SimpleAdapter(getActivity(), dataList, R.layout.gridview_item, from, to);
-                        gridView.setAdapter(adapter);
-                        break;
-                    }
-                };
-            }
-        };
-
-        initAdapterData();      //初始化Adapter数据
-        bathInitLinstenr();
-       refreshOneMinute();
-
-        return view;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        alHouse = ((MainActivity)context).getAlRoom();
-        userInfor = ((MainActivity)context).getUserInfo();
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
+    private void initView(View view) {
+        gridView= view.findViewById(R.id.bath_gridview);
+        buttonorder1 = view.findViewById(R.id.button_order);
+        spinner = view.findViewById(bath_spinner);
+        fragmentflag = getFragmentManager().findFragmentById(R.id.main_fragment);
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-
-    //初始化
-    public void bathInitLinstenr(){
-
+    /******************************************************************************
+     * 功能：刷新
+     *******************************************************************************/
+    public void InitLinstenr(){
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -258,7 +291,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         });
     }
 
-    /* 初始化Adapter数据 */
+    /******************************************************************************
+     * 功能：初始化Adapter数据
+     *******************************************************************************/
     void initAdapterData(){
         //初始化spinner
         List<String> myList = new ArrayList<String>();
@@ -297,41 +332,16 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0x0001 && resultCode == 0x0002){
-            String isOrder = data.getStringExtra("isOrder");
-            if(isOrder.equals("true")){
-                buttonorder1.setText("我的预约");
-                buttonorder1.setTag(true);
-            }
-        }
-        if(requestCode == 0x0003 && resultCode == 0x0004){
-            String isOrder = data.getStringExtra("isOrder");
-            if(isOrder.equals("true")){
-                buttonorder1.setText("我的预约");
-                buttonorder1.setTag(true);
-            }
-        }
-    }
-
-    @Override
-    public void orderChange() {}
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        printLog("在onstart里面");
-        initAdapterData();      //初始化Adapter数据
-    }
-
+    /******************************************************************************
+     * 功能：打印Log.w信息
+     *******************************************************************************/
     private void printLog(String info){
         Log.w("Fragment_bath",info);
     }
 
-    /*初始化datalist*/
+    /******************************************************************************
+     * 功能：打初始化datalist
+     *******************************************************************************/
     private void initdatalist(){
         roomNum = alRoom.size();
         //图标下的文字
@@ -358,7 +368,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
-    /* 自动预约 */
+    /******************************************************************************
+     * 功能：自动预约功能
+     *******************************************************************************/
     private void getInfoServerAutoOrder(){
         ServerReturnOrderMsg srom = null;
         LinkServer linkServer = new LinkServer();
@@ -392,7 +404,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
-    /* 查询某澡堂所有澡间 */
+    /******************************************************************************
+     * 功能：查询某澡堂所有澡间
+     *******************************************************************************/
     private void getInfoServerBathRoom(){
         linkServer = new LinkServer();
         connectFuture= LinkHelper.getConn(linkServer);
@@ -418,7 +432,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
-    /* 获取用户卡信息 */
+    /******************************************************************************
+     * 功能：获取用户卡信息
+     *******************************************************************************/
     private void getInfoServerPersonInfo(){
         linkServer = new LinkServer();
         connectFuture= LinkHelper.getConn(linkServer);
@@ -442,7 +458,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
-    //每个1分钟定时刷新一次,请求服务器，获得alroom
+    /******************************************************************************
+     * 功能：定时刷新一次,请求服务器，获得alroom
+     *******************************************************************************/
     public void refreshOneMinute () {
         new Thread(new Runnable() {
             @Override
@@ -467,28 +485,4 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }).start();
     }
 
-
-
-    /*void initData() {
-        //图标
-        int icno[] = {R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2,
-                R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2,
-                R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2,
-                R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2,
-                R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2,
-                R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2, R.drawable.icon_bath2
-        };
-        //图标下的文字
-        String name[]=new String[40];
-        for(int i=1;i<=icno.length;i++){
-            name[i-1]=("澡间"+i).toString();
-        }
-        dataList = new ArrayList<Map<String, Object>>();
-        for (int i = 0; i < icno.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("img", icno[i]);
-            map.put("text", name[i]);
-            dataList.add(map);
-        }
-    }*/
 }

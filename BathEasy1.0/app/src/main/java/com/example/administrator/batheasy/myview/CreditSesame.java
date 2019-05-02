@@ -21,16 +21,7 @@ import android.view.animation.LinearInterpolator;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
-
-
-
+/* 组件：用来动态显示信用积分 */
 public class CreditSesame extends View {
     String[] sesameStr;
     private int defaultSize;

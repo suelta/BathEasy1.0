@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 
 import org.apache.mina.core.future.ConnectFuture;
 
+/* 显示个人信息的Fragment */
 public class Fragment_info extends Fragment {
     UserInfor userInfo;
     Card cardInfo;
@@ -51,11 +52,41 @@ public class Fragment_info extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getInfoServerPersonInfo();
-        myinfoInit();
-        myinfoEventInit();
+
+        init();
     }
 
+    /* 获取MainActivity中的数据 */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userInfo = ((MainActivity)context).getUserInfo();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0x0021 && resultCode == 0x0020){
+            String isOrder = data.getStringExtra("isOrder");
+            if(isOrder.equals("true")){
+                getInfoServerPersonInfo();
+                tv_name.setText(userInfo.getUName());
+            }
+        }
+    }
+
+    /******************************************************************************
+     * 功能：初始化
+     *******************************************************************************/
+    private void init() {
+        getInfoServerPersonInfo();
+        initView();
+        initListener();
+    }
+
+    /******************************************************************************
+     * 功能：从服务器获取个人信息
+     *******************************************************************************/
     private void getInfoServerPersonInfo(){
         LinkServer linkServer = new LinkServer();
 
@@ -81,12 +112,10 @@ public class Fragment_info extends Fragment {
         }
     }
 
-    private void printLog(String info) {
-        Log.w("Fragment_info",info);
-    }
-
-    /* 初始化界面的相关值，如：余额等 */
-    private void myinfoInit() {
+    /******************************************************************************
+     * 功能：初始化组件
+     *******************************************************************************/
+    private void initView() {
         iv_touxiang = getActivity().findViewById(R.id.info_touxiang);
         tv_name = getActivity().findViewById(R.id.info_name);
         tv_score = getActivity().findViewById(R.id.info_tv_score);
@@ -102,9 +131,10 @@ public class Fragment_info extends Fragment {
         }
     }
 
-    //给myinfo页面设置监听器
-    public void myinfoEventInit(){
-//        TableRow tr_info = getActivity().findViewById(R.id.tablerow_info);
+    /******************************************************************************
+     * 功能：初始化监听器
+     *******************************************************************************/
+    public void initListener(){
         LinearLayout ll_info = getActivity().findViewById(R.id.main_ll_info);
         ll_info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,22 +211,10 @@ public class Fragment_info extends Fragment {
         });
     }
 
-    /* 获取MainActivity中的数据 */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        userInfo = ((MainActivity)context).getUserInfo();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0x0021 && resultCode == 0x0020){
-            String isOrder = data.getStringExtra("isOrder");
-            if(isOrder.equals("true")){
-                getInfoServerPersonInfo();
-                tv_name.setText(userInfo.getUName());
-            }
-        }
+    /******************************************************************************
+     * 功能：打印Log.w信息
+     *******************************************************************************/
+    private void printLog(String info) {
+        Log.w("Fragment_info",info);
     }
 }
