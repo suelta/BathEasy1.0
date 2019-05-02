@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_gray2"
+    android:clickable="true">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="0">
+    <!--title-邮箱-->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg_dodgerblue">
+
+        <TextView
+            android:text="邮  箱"
+            android:textSize="@dimen/bigtitle_size"
+            android:layout_margin="@dimen/big_margin"
+            android:gravity="center"
+            android:textColor="#FFF"/>
+
+    </TableRow>
+
+    <!--联系客服-->
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite">
+
+        <RelativeLayout
+            android:id="@+id/email_rl_chatkufu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/Image_kefu"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/icon_email_kefu" />
+
+            <TextView
+                android:id="@+id/text_kefu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/Image_kefu"
+                android:text="联系客服"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_kefu"
+                android:layout_toRightOf="@id/Image_kefu"
+                android:text="有问题可以联系客服哟！"
+                android:textSize="20sp" />
+        </RelativeLayout>
+    </TableRow>
+
+        <View style="@style/bg_line"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_lv_email">
+        </ListView>
+
+    </TableLayout>
+</RelativeLayout>

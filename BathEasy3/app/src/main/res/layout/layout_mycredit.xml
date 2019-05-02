@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/mycredit_relayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.administrator.batheasy3.myview.CreditSesame
+            android:id="@+id/sesame_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <Button
+            android:id="@+id/mycredit_bt_creditinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sesame_view"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_marginRight="@dimen/huge_margin"
+            android:layout_marginTop="@dimen/huge_margin"
+            android:background="@color/color_button_blue"
+            android:text="我的信用详情"
+            android:textColor="#FFF"
+            android:textSize="@dimen/font_medium_size" />
+    </RelativeLayout>
+
+</LinearLayout>

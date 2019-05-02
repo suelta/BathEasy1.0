@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_DeepSkyBlue">
+    <!--logo-->
+    <ImageView
+        android:id="@+id/login_iv_logo"
+        android:src="@drawable/logo_21"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:layout_centerHorizontal="true" />
+
+    <!--输入电话-->
+    <TextView
+        android:id="@+id/login_tv_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tel"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/login_iv_logo" />
+    <EditText
+        android:id="@+id/login_et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone"
+        android:layout_below="@+id/login_tv_tel"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:maxLines="1"/>
+
+    <!--输入密码-->
+    <TextView
+        android:id="@+id/login_tv_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/login_et_phone" />
+    <EditText
+        android:id="@+id/login_et_psw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:layout_below="@+id/login_tv_psw"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:maxLines="1"/>
+
+    <!--登录按钮-->
+    <Button
+        android:id="@+id/login_bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_button_blue"
+        android:text="登  录"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_medium_size"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:layout_below="@+id/login_et_psw"/>
+
+    <Button
+        android:id="@+id/login_bt_regitser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_button_blue"
+        android:text="注   册"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_medium_size"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:layout_below="@+id/login_bt_login"/>
+
+    <TextView
+        android:id="@+id/login_tv_lookforpsw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="忘记密码？找回密码"
+        android:textColor="#FFF"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:textSize="@dimen/font_medium_size"
+        android:layout_below="@+id/login_bt_regitser"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>

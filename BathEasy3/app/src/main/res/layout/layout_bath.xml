@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_gray2"
+    android:clickable="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!--设置顶部的样式-->
+    <TableLayout
+        android:id="@+id/bath_toptitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0">
+        <TableRow
+
+            android:background="@color/color_bg_dodgerblue">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="洗  澡"
+                    android:textSize="@dimen/bigtitle_size"
+                    android:layout_margin="@dimen/big_margin"
+                    android:gravity="center"
+                    android:textColor="#FFF"/>
+
+                <ImageView
+                    android:id="@+id/bath_iv_ewm"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/icon_ewm_white"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/small_margin"/>
+            </RelativeLayout>
+
+        </TableRow>
+    </TableLayout>
+
+    <!--选择澡堂-->
+    <Spinner
+        android:id="@+id/bath_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bath_toptitle"
+        android:background="@color/color_bg_DeepSkyBlue"
+        android:entries="@array/whichbathroom">
+    </Spinner>
+<TableLayout
+    android:id="@+id/bath_tl_tips"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bath_spinner">
+    <TableRow
+        android:gravity="center">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_blue"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用中"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_green"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空闲"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不可用"/>
+    </TableRow>
+
+
+</TableLayout>
+    <GridView
+        android:id="@+id/bath_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bath_tl_tips"
+
+        android:layout_marginTop="@dimen/big_margin"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin"
+        android:scrollbars="none"
+        android:stretchMode="columnWidth"
+
+        android:verticalSpacing="@dimen/big_margin"
+        android:horizontalSpacing="@dimen/huge_margin"
+
+        android:numColumns="4"
+        android:background="@color/color_bg_Gray">
+    </GridView>
+
+
+    <Button
+        android:id="@+id/button_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="预     约"
+        android:textColor="#FFF"
+        android:background="#06b0f4"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/small_margin"
+        />
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorBlue">#1296DB</color>
+    <color name="colorLightBlue">#0FBBE0</color>
+    <color name="colorLightGray">#BFC3C7</color>
+    <color name="colotGainsboro">#DCDCDC</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorzfbBlue">#1B82D2</color>
+    <color name="color_bg_Gray">#F4F4F4</color>
+    <color name="colorQblue">#ED6C10</color>
+    <color name="color_bg_DeepSkyBlue">#00BFFF</color>
+    <color name="color_button_blue">#06b0f4</color>
+    <color name="color_green">#00FF00</color>
+    <color name="color_bg_dodgerblue">#1E90FF</color>
+    <color name="color_bg_gray2">#F0F3F6</color>
+</resources>

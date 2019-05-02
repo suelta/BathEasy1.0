@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:background="#fff">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="120dp"
+        android:src="@drawable/logo_41"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="您本次洗浴共消费"
+        android:textColor="#000"
+        android:textSize="@dimen/font_big_size"
+        />
+    <TextView
+        android:id="@+id/sp_tv_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="0.00元"
+        android:textSize="@dimen/font_medium_size"
+        android:textColor="@color/colorQblue"
+        android:textStyle="bold" />
+
+    <View style="@style/bg_line" android:layout_marginTop="@dimen/big_margin"/>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="0"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginRight="@dimen/big_margin">
+        <TableRow>
+            <TextView
+                android:text="开始洗浴时间"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext" />
+            <TextView
+                android:id="@+id/sp_tv_begintime1"
+                android:text="4/25 16:30"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="结束洗浴时间"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext" />
+            <TextView
+                android:id="@+id/sp_tv_endtime"
+                android:text="4/25 16:55"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="洗浴时长"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext" />
+            <TextView
+                android:id="@+id/sp_tv_time"
+                android:text="25分钟"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_marginTop="@dimen/medium_margin"
+                android:text="浴室号"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext" />
+            <TextView
+                android:id="@+id/sp_tv_roomid"
+                android:text="1"
+                android:textSize="@dimen/font_medium_size"
+                style="@style/usertext"/>
+        </TableRow>
+    </TableLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_margin"
+        android:text="洗完澡，你快乐吗？"
+        android:textSize="@dimen/font_small_size"/>
+</LinearLayout>

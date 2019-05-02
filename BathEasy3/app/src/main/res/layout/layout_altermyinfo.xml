@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/alinfo_rl_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:background="#FFF">
+
+        <ImageView
+            android:id="@+id/alinfo_iv_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"/>
+
+        <Button
+            android:id="@+id/alinfo_bt_changeimage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/alinfo_iv_image"
+            android:text="更换头像"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/alinfo_tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="昵称"
+            android:textColor="#000"
+            android:textSize="@dimen/font_small_size"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_below="@+id/alinfo_bt_changeimage"/>
+
+        <EditText
+            android:id="@+id/alinfo_et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入昵称"
+            android:layout_below="@+id/alinfo_tv_name"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_marginRight="@dimen/huge_margin"
+            android:maxLines="1"/>
+
+        <!--输入电话-->
+        <TextView
+            android:id="@+id/alinfo_tv_tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="电话"
+            android:textColor="#000"
+            android:textSize="@dimen/font_small_size"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_below="@+id/alinfo_et_name"/>
+        <EditText
+            android:id="@+id/alinfo_et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请输入手机号"
+            android:layout_below="@+id/alinfo_tv_tel"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_marginRight="@dimen/huge_margin"
+            android:maxLines="1"/>
+
+        <!--性别选择-->
+        <TextView
+            android:id="@+id/alinfo_tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="性别"
+            android:textColor="#000"
+            android:textSize="@dimen/font_small_size"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_below="@+id/alinfo_et_phone"/>
+
+        <RadioGroup
+            android:id="@+id/alinfo_rg_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/alinfo_tv_sex"
+            android:layout_marginLeft="@dimen/huge_margin">
+            <RadioButton
+                android:id="@+id/alinfo_rb_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/alinfo_rb_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/huge_margin"
+                android:text="女" />
+        </RadioGroup>
+
+
+        <!--输入密码-->
+        <TextView
+            android:id="@+id/alinfo_tv_school"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="学校"
+            android:textColor="#000"
+            android:textSize="@dimen/font_small_size"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_marginBottom="@dimen/small_margin"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_below="@+id/alinfo_rg_sex"/>
+
+        <!--选择学校-->
+        <Spinner
+            android:id="@+id/alinfo_sp_school"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/alinfo_tv_school"
+            android:background="@color/colotGainsboro"
+            android:entries="@array/whichschool"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_marginRight="@dimen/huge_margin"
+            >
+        </Spinner>
+
+        <Button
+            android:id="@+id/alinfo_bt_alterinfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/color_bg_DeepSkyBlue"
+            android:text="修改信息"
+            android:textColor="#FFF"
+            android:textSize="@dimen/font_medium_size"
+            android:layout_marginTop="@dimen/huge_margin"
+            android:layout_marginLeft="@dimen/huge_margin"
+            android:layout_marginRight="@dimen/huge_margin"
+            android:layout_marginBottom="@dimen/big_margin"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+</LinearLayout>

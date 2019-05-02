@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/room_toptitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg_DeepSkyBlue">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="房间详情"
+            android:textSize="@dimen/font_huge_size"
+            android:textColor="#FFF"
+            android:layout_centerInParent="true"
+            android:layout_margin="@dimen/big_margin"/>
+    </RelativeLayout>
+
+    <TableLayout
+        android:id="@+id/busy_tl_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/room_toptitle"
+        android:stretchColumns="0">
+        <TableRow>
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="状态"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:id="@+id/busy_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="故障"
+                    android:textSize="@dimen/font_big_size"
+                    android:textColor="#FF0000"
+                    android:textStyle="bold"
+                    android:layout_margin="@dimen/big_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow>
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房间号"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:id="@+id/roomfault_roomid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="012"
+                    android:textSize="@dimen/font_medium_size"
+                    android:textColor="#000000"
+                    android:layout_margin="@dimen/big_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow>
+            <RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="详细情况"
+                    android:layout_marginLeft="@dimen/huge_margin"
+                    android:layout_centerVertical="true"
+                    android:textSize="@dimen/font_medium_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="房间故障，暂时不可用"
+                    android:textSize="@dimen/font_small_size"
+                    android:textColor="#000000"
+                    android:layout_margin="@dimen/big_margin"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+        </TableRow>
+    </TableLayout>
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="0,1">
+        <TableRow>
+            <Button
+                android:id="@+id/roomfault_bt_return"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="返回"
+                android:textSize="@dimen/font_medium_size"
+                android:gravity="center"
+                android:textColor="#FFFFFF"
+                android:background="#06b0f4"
+                android:layout_margin="@dimen/small_margin"
+                android:padding="@dimen/medium_margin"/>
+        </TableRow>
+    </TableLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="ddd1"
+            android:id="@+id/consume_place"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textColor="@color/colorQblue"
+            android:layout_marginLeft="15dip"/>
+        <TextView
+            android:text="-"
+            android:id="@+id/consume_signal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginRight="2dip" />
+        <TextView
+            android:text="ddd2"
+            android:id="@+id/consume_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorQblue"
+            android:textSize="20dp"
+            android:layout_marginRight="15dip" />
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:text="ddd3"
+            android:id="@+id/consume_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="12dp"
+            android:layout_marginLeft="15dip"/>
+        <TextView
+            android:text="ddd4"
+            android:id="@+id/consume_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12dp"
+            android:layout_marginRight="15dip"
+            />
+    </LinearLayout>
+
+</LinearLayout>

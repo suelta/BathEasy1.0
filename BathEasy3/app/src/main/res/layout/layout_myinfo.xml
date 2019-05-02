@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_gray2">
+
+
+    <LinearLayout style="@style/wrap_layout" >
+        <!-- 上圆角-->
+        <LinearLayout
+            android:id="@+id/myinfo_ll_tx"
+            style="@style/top_layout"
+            android:padding="@dimen/small_margin">
+            <TextView style="@style/smalltext1" android:text="头像" />
+            <ImageView
+                android:id="@+id/myinfo_touxinag"
+                android:layout_width="@dimen/image_medium_sie"
+                android:layout_height="@dimen/image_medium_sie"
+                android:src="@drawable/avatar_1"
+                android:layout_toLeftOf="@+id/myinfo_iv_alter1"
+                android:layout_margin="@dimen/small_margin"
+                android:scaleType="centerCrop"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/myinfo_ll_name"
+            style="@style/mid_layout">
+            <TextView style="@style/smalltext1" android:text="昵称" />
+            <TextView
+                style="@style/smalltext0"
+                android:id="@+id/myinfo_name"
+                android:text="jack"
+                android:layout_marginRight="@dimen/small_margin"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+        <!-- 分割线 -->
+        <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/myinfo_ll_sex"
+            style="@style/mid_layout">
+            <TextView style="@style/smalltext1" android:text="性别" />
+            <TextView
+                android:id="@+id/myinfo_sex"
+                style="@style/smalltext0" android:text="男"
+                android:layout_marginRight="@dimen/small_margin"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+        <View style="@style/bg_line"/>
+        <LinearLayout
+            android:id="@+id/myinfo_ll_schhool"
+            style="@style/mid_layout">
+            <TextView style="@style/smalltext1" android:text="学校" />
+            <TextView
+
+                android:id="@+id/myinfo_school"
+                style="@style/smalltext0"
+                android:text="武汉理工大学（余家头）"
+                android:layout_marginRight="@dimen/small_margin"/>
+            <ImageView style="@style/img_arrow"/>
+        </LinearLayout>
+
+        <View style="@style/bg_line"/>
+        <!-- 下圆角-->
+        <LinearLayout
+            android:id="@+id/myinfo_ll_tel"
+            style="@style/bottom_layout">
+            <TextView
+                style="@style/smalltext1" android:text="手机号" />
+            <TextView
+                android:id="@+id/myinfo_tel"
+                style="@style/smalltext0"
+                android:text="@string/my_phone"
+                android:layout_marginRight="@dimen/small_margin"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/myinfo_bt_changinfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg_DeepSkyBlue"
+        android:text="修改个人信息"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_medium_size"
+        android:layout_marginRight="@dimen/big_margin"
+        android:layout_marginLeft="@dimen/big_margin"
+        android:layout_marginTop="@dimen/big_margin"/>
+</TableLayout>
