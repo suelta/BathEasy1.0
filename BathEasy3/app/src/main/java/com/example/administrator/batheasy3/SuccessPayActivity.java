@@ -29,7 +29,11 @@ public class SuccessPayActivity extends AppCompatActivity {
     private UserInfor userinfo;
     private int roomid;
 
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +50,7 @@ public class SuccessPayActivity extends AppCompatActivity {
      * 功能：初始化
      *******************************************************************************/
     private void init() {
+        printLog("结算页面");
         Intent intent = getIntent();
         userinfo = (UserInfor) intent.getSerializableExtra("userinfo");
         roomid = intent.getIntExtra("roomid",-1);
@@ -82,27 +87,6 @@ public class SuccessPayActivity extends AppCompatActivity {
         }
 
     }
-
-    /******************************************************************************
-     * 功能：获取服务器关于金额
-     *******************************************************************************/
-    /*
-    private void getInfoServerPayInfo() {
-        UserSendQRCode usorc = new UserSendQRCode();
-        usorc.setUTel(userinfo.getUTel());
-        usorc.setRNo(ewmid);
-
-        HttpUtils hu = new HttpUtils("SendQRCode",new Gson().toJson(usorc).toString());
-        hu.start();
-
-        String clientInfo  = hu.getContent();
-        if(clientInfo == null||clientInfo.equals("")){
-            printLog("反馈二维码给服务器失败");
-            return;
-        }
-        printLog("反馈二维码给服务器成功");
-        sri = new Gson().fromJson(clientInfo,ServerReturnBathMsg.class);
-    }*/
 
     private void printLog(String info) {
         Log.w("SuccessPayAcitivity",info);

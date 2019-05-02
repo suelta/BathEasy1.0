@@ -5,18 +5,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.administrator.batheasy3.Accessory.HttpUtils;
 import com.example.administrator.batheasy3.Accessory.LinkHelper;
 import com.example.administrator.batheasy3.Accessory.LinkServer;
+import com.example.administrator.batheasy3.Fragment.Fragment_bath;
 import com.example.administrator.batheasy3.InternalWithServer.ServerReturnAString;
 import com.example.administrator.batheasy3.InternalWithServer.ServerReturnBathMsg;
 import com.example.administrator.batheasy3.InternalWithServer.ServerReturnBathRoomState;
@@ -43,6 +48,7 @@ public class SuccessOrderActivity extends AppCompatActivity {
     private int roomid;
     private int flag;   //1代表前面有人排队，0代表去洗澡路上，2代表正在洗澡
     public static final int REQUEST_CODE_SCAN = 0x0050;
+    private Handler handler;
 
     private TextView tv_tips;
     private TextView tv_roomid;
@@ -51,6 +57,8 @@ public class SuccessOrderActivity extends AppCompatActivity {
     private Button bt_cancel;   //0代表可以取消预约。1代表
     private ImageView iv_ewm;
     private TextView tv_isservice;
+    private int qflag;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +100,6 @@ public class SuccessOrderActivity extends AppCompatActivity {
      * 功能：将获取到的二维码
      *******************************************************************************/
     private void getInfoServerEWM(String rNo) {
-        printLog("==========="+rNo);
         int Rno = Integer.valueOf(rNo);
         UserSendQRCode usorc = new UserSendQRCode();
         usorc.setUTel(user.getUTel());
@@ -146,12 +153,12 @@ public class SuccessOrderActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }else if(sri.getCommand().equals("结束使用")){
-
             Intent intent = new Intent(SuccessOrderActivity.this, SuccessPayActivity.class);
             intent.putExtra("ServerReturnBathMsg",sri);
             intent.putExtra("userinfo",user);
             intent.putExtra("roomid",roomid);
             startActivity(intent);
+            finish();
         }else{
             AlertDialog.Builder builder=new AlertDialog.Builder(SuccessOrderActivity.this);
             builder.setIcon(R.drawable.icon_tips_black);
@@ -176,11 +183,7 @@ public class SuccessOrderActivity extends AppCompatActivity {
         Intent intent = getIntent();
         user = (UserInfor) intent.getSerializableExtra("userinfo");
         roomid = intent.getIntExtra("roomid",-1);
-        //连接服务器，获取当前房间的状态。（空闲，前面排队还有多少人，正在洗澡）
 
-        if(roomid == -1){
-            roomid = bathRoom.getBNo();
-        }
         getInfoServer();
 
         initView();
@@ -194,12 +197,34 @@ public class SuccessOrderActivity extends AppCompatActivity {
             case 2:isBathing();break;
             default:break;
         }
+
+        handler = handler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what){
+                    case 0x0111:{
+                        printLog("进入handler 0x0111");
+
+                        switch (flag){
+                            case 0:isFree();break;
+                            case 1:isQueue();break;
+                            case 2:isBathing();break;
+                            default:break;
+                        }
+                        break;
+                    }
+                };
+            }
+        };
+
     }
 
     /******************************************************************************
      * 功能：初始化相关数据
      *******************************************************************************/
     private void initData() {
+        qflag = 0;
+
         tv_state.setText(srom.getOrderState()+"");
         tv_roomid.setText(roomid+"");
         tv_roomaddr.setText(user.getUSchool());
@@ -298,7 +323,7 @@ public class SuccessOrderActivity extends AppCompatActivity {
         hu.start();
         String strinfo = null;
         String clientInfo = hu.getContent();
-        if (clientInfo == null || clientInfo.equals("")) {
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("取消预约失败");
             return;
         }
@@ -321,16 +346,9 @@ public class SuccessOrderActivity extends AppCompatActivity {
      *******************************************************************************/
     private void isFree(){
         //这里应获取服务器传来的信息进行初始化
-//        String timeStr = srom.getTime();
-//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = srom.getTime();
-//        try {
-//             date = sdf.parse(timeStr);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-        long time = date.getTime() ;
 
+        long time = date.getTime() ;
 
         CountDownTimer timer = new CountDownTimer(10*60*1000-(System.currentTimeMillis() - time),1000) {
             @Override
@@ -344,7 +362,8 @@ public class SuccessOrderActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                //finish();   //关闭本窗口
+                Toast.makeText(SuccessOrderActivity.this,"您未在指定时间中到达浴室，已取消您的预约",Toast.LENGTH_LONG).show();
+                finish();   //关闭本窗口
             }
         };
         timer.start();  //启动倒计时
@@ -355,6 +374,25 @@ public class SuccessOrderActivity extends AppCompatActivity {
      *******************************************************************************/
     private void isQueue(){
         tv_tips.setText("您前面还有"+srom.getQueueNum()+"人");
+        qflag++;
+        if(qflag == 1) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (true) {
+                        try {
+                            Thread.sleep(10000);//每隔60s执行一次
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        getInfoServer();
+                        Message msg = Message.obtain();
+                        msg.what = 0x0111;
+                        handler.sendMessage(msg);
+                    }
+                }
+            }).start();
+        }
     }
 
     /******************************************************************************

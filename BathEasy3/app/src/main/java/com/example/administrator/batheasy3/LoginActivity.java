@@ -52,17 +52,7 @@ public class LoginActivity extends AppCompatActivity {
      * 功能：初始化
     *******************************************************************************/
     private void init() {
-
-//        //获取服务器端的连接
-//        linkServer = new LinkServer();
-//        linkServer.start();
-//        firstConn = true;
-
-        //初始化Bmob，用来实现“验证码”功能
-//        Bmob.initialize(this, "82450cd6b2b2f6c72793f60b884c524c");
-
         initView();
-
         initListener();
     }
 
@@ -111,9 +101,6 @@ public class LoginActivity extends AppCompatActivity {
         register = (Button) this.findViewById(R.id.login_bt_regitser);
         phoneText=(EditText)this.findViewById(R.id.login_et_phone) ;
         pwdText=(EditText)this.findViewById(R.id.login_et_psw);
-        /*便于调试*/
-        phoneText.setText("123");
-        pwdText.setText("123");
     }
 
     /******************************************************************************
@@ -125,15 +112,21 @@ public class LoginActivity extends AppCompatActivity {
 
         String clientInfo  = hu.getContent();
         System.out.println("=================================="+clientInfo);
-        if(clientInfo == null||clientInfo.equals("")){
-            printLog("Error");
-            Toast.makeText(LoginActivity.this,"Error:404",Toast.LENGTH_SHORT).show();
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
+            printLog("Error,连接服务器失败");
+            Toast.makeText(LoginActivity.this,"连接服务器失败",Toast.LENGTH_SHORT).show();
             return;
         }
         ServerReturnUserLoginMsg srulm = new Gson().fromJson(clientInfo,ServerReturnUserLoginMsg.class);
         String loginState = srulm.getLoginState();
         if(loginState.equals("用户名或密码错误")){
             Toast.makeText(LoginActivity.this,"用户名或密码错误",Toast.LENGTH_SHORT).show();
+            phoneText.setText("");
+            pwdText.setText("");
+            return;
+        }
+        if(loginState.equals("不可重复登录")){
+            Toast.makeText(LoginActivity.this,"不可重复登录",Toast.LENGTH_SHORT).show();
             phoneText.setText("");
             pwdText.setText("");
             return;

@@ -102,6 +102,7 @@ public class MyinfoActivity extends AppCompatActivity {
         ll_school = findViewById(R.id.myinfo_ll_schhool);
         ll_name = findViewById(R.id.myinfo_ll_name);
         bt_changinfo = findViewById(R.id.myinfo_bt_changinfo);
+        ll_tx = findViewById(R.id.myinfo_ll_tx);
 
         initdata();
     }
@@ -142,95 +143,41 @@ public class MyinfoActivity extends AppCompatActivity {
             }
         });
 
-        final AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-        final EditText et = new EditText(this);
+        ll_tx.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MyinfoActivity.this,MyAlterInfoActivity.class);
+                intent.putExtra("userinfo",userInfo);
+                startActivityForResult(intent,0x0030);
+            }
+        });
+
         ll_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder1.setTitle("修改姓名").setView(et).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        tv_name.setText(et.getText().toString());
-                        isChange = true;
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-                Intent intent = getIntent();
-                if(isChange == true){
-
-                    intent.putExtra("flag","true");
-                }else{
-                    intent.putExtra("flag","true");
-                }
-                setResult(0x0021,intent);   //设置返回的信息给Fragemnt_bath
+                Intent intent = new Intent(MyinfoActivity.this,MyAlterInfoActivity.class);
+                intent.putExtra("userinfo",userInfo);
+                startActivityForResult(intent,0x0030);
             }
         });
 
-        final AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-        final EditText et2 = new EditText(this);
+
         ll_sex.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder1.setTitle("修改性别").setView(et).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(et2.getText().toString().equals("男")||et2.getText().toString().equals("女"))
-                        tv_sex.setText(et2.getText().toString());
-                        isChange = true;
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-
-                Intent intent = getIntent();
-                if(isChange == true){
-                    intent.putExtra("flag","true");
-                }else{
-                    intent.putExtra("flag","true");
-                }
-                setResult(0x0021,intent);   //设置返回的信息给Fragemnt_bath
+                Intent intent = new Intent(MyinfoActivity.this,MyAlterInfoActivity.class);
+                intent.putExtra("userinfo",userInfo);
+                startActivityForResult(intent,0x0030);
             }
         });
 
-        final AlertDialog.Builder builder3 = new AlertDialog.Builder(this);
-        final Spinner spinner = new Spinner(this);
-        List<String> list = new ArrayList<String>();
-        list.add("beijing");
-        list.add("shanghai");
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.adapter_item1,list);
-        spinner.setAdapter(adapter);
-        printLog("正在zbei");
+
         ll_school.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                builder3.setTitle("修改学校").setView(spinner).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        printLog("正在修改学校");
-                        tv_school.setText(spinner.getSelectedItem()+"");
-                        isChange = true;
-                    }
-                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                }).show();
-
-                Intent intent = getIntent();
-                if(isChange == true){
-                    intent.putExtra("flag","true");
-                }else{
-                    intent.putExtra("flag","true");
-                }
-                setResult(0x0021,intent);   //设置返回的信息给Fragemnt_bath
+                Intent intent = new Intent(MyinfoActivity.this,MyAlterInfoActivity.class);
+                intent.putExtra("userinfo",userInfo);
+                startActivityForResult(intent,0x0030);
             }
         });
     }
@@ -248,7 +195,7 @@ public class MyinfoActivity extends AppCompatActivity {
         HttpUtils hu = new HttpUtils("GetInfo",new Gson().toJson(uoa).toString());
         hu.start();
         String clientInfo  = hu.getContent();
-        if(clientInfo == null || clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("获取服务端查询用户和卡信息信息失败");
         }else{
             printLog("获取服务端查询用户和卡信息信息成功");

@@ -1,6 +1,13 @@
 package com.example.administrator.batheasy3.Accessory;
 
 import android.util.Log;
+import android.widget.Toast;
+
+import com.example.administrator.batheasy3.InternalWithServer.Message;
+import com.example.administrator.batheasy3.InternalWithServer.UserOrderAsk;
+import com.example.administrator.batheasy3.MainActivity;
+import com.example.administrator.batheasy3.bean1.UserInfor;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -39,6 +46,7 @@ public class HttpUtils extends Thread {
         content = post(url, info);
     }
 
+
     /******************************************************************************
      * 功能：向服务器发送请求
      *******************************************************************************/
@@ -65,6 +73,29 @@ public class HttpUtils extends Thread {
         }
 
 
+    }
+
+    private static Boolean getInfoServerexit(UserInfor userInfor){
+        UserOrderAsk uoa = new UserOrderAsk();
+        uoa.setUTel(userInfor.getUTel());
+        uoa.setCommand("退出登录");
+        HttpUtils hu = new HttpUtils("Exit",new Gson().toJson(uoa).toString());
+        hu.start();
+        String clientInfo  = hu.getContent();
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
+//            printLog("退出登录信息同步到服务器失败");
+//            Toast.makeText(MainActivity.this,"退出失败", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+//            printLog("退出登录信息同步到服务器成功");
+            Message message = new Gson().fromJson(clientInfo,Message.class);
+//            Toast.makeText(MainActivity.this,message.getCommand(), Toast.LENGTH_SHORT).show();
+            if(message.getCommand().equals("退出登录成功")){
+                return true;
+            }else{
+                return false;
+            }
+        }
     }
 
     /******************************************************************************

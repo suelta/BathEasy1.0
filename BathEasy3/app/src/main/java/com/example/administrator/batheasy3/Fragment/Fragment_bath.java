@@ -83,6 +83,7 @@ public class Fragment_bath extends Fragment {
     private LinkServer linkServer;
     public static final int REQUEST_CODE_SCAN = 0x0003;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -242,8 +243,10 @@ public class Fragment_bath extends Fragment {
                 }else{
                     Log.w("Fragment_bath","这里是我的预约");
                     //打开一个预约成功的界面
+                    int roomnum = getInfoServer();
                     Intent intent = new Intent(getActivity(), SuccessOrderActivity.class);
                     intent.putExtra("userinfo",userInfor);
+                    intent.putExtra("roomid",roomnum);
                     startActivity(intent);
                 }
             }
@@ -279,7 +282,6 @@ public class Fragment_bath extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //根据所选的item，访问服务器获取相应的浴室信息
-                printLog("测试：spinner里面有吗");
                 Message message = new Message();
                 message.what = 0x0011;
                 handler.sendMessage(message);
@@ -378,19 +380,25 @@ public class Fragment_bath extends Fragment {
         HttpUtils hu = new HttpUtils("AutoOrder",new Gson().toJson(uao).toString());
         hu.start();
         String clientInfo  = hu.getContent();
-        if(clientInfo == null||clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("自动预约失败");
             return;
         }
         printLog("自动预约成功");
         ServerReturnOrderMsg srom = new Gson().fromJson(clientInfo,ServerReturnOrderMsg.class);
-
+        int num = srom.getRNo();
+        for (int i = 0; i < alRoom.size(); i++) {
+            if(alRoom.get(i).getRNo() == num){
+                num = i+1;
+            }
+        }
         if(srom.getOrderState().equals("自动预约成功")){
             //打开一个预约成功的界面
             Intent intent = new Intent(getActivity(), SuccessOrderActivity.class);
             buttonorder1.setText("我的预约");
             buttonorder1.setTag(true);
             intent.putExtra("userinfo",userInfor);
+            intent.putExtra("roomid",num);
             startActivity(intent);
         }else{
             Toast.makeText(getActivity(),srom.getOrderState()+"",Toast.LENGTH_SHORT).show();
@@ -412,7 +420,7 @@ public class Fragment_bath extends Fragment {
         hu.start();
 
         String clientInfo  = hu.getContent();
-        if(clientInfo == null||clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("查询某澡堂所有澡间失败");
             return false;
         }
@@ -437,7 +445,7 @@ public class Fragment_bath extends Fragment {
         hu.start();
 
         String clientInfo  = hu.getContent();
-        if(clientInfo == null||clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("获取服务端查询用户和卡信息信息失败");
             return;
         }
@@ -577,37 +585,37 @@ public class Fragment_bath extends Fragment {
             dialog.show();
         }
     }
-    /******************************************************************************
-     * 功能：下拉刷新显示
-     *******************************************************************************/
-    /*private void refresh(View view) {
-        RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new BezierRadarHeader(getContext()).setEnableHorizontalDrag(true));
-        //设置 Footer 为球脉冲样式
-        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
-       *//* final RefreshLayout refreshLayout1 = refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                Message message = new Message();
-                message.what = 0x0011;
-                handler.sendMessage(message);
-                Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
-                refreshlayout.finishRefresh(2000*//**//*,false*//**//*);//传入false表示刷新失败
-            }
 
-            @Override
-            public void onRefresh() {
-                Message message = new Message();
-                message.what = 0x0011;
-                handler.sendMessage(message);
-                Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
+
+    /******************************************************************************
+     * 功能：查找房间状态，预约等相关信息
+     *******************************************************************************/
+    private int getInfoServer(){
+        ServerReturnOrderMsg srom = null;
+        int num;
+        UserOrderAsk uoa = new UserOrderAsk();
+        uoa.setUTel(userInfor.getUTel());
+        uoa.setCharacter("user");
+        uoa.setCommand("查询预约");
+        HttpUtils hu = new HttpUtils("OrderAsk",new Gson().toJson(uoa).toString());
+        hu.start();
+
+        String clientInfo  = hu.getContent();
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<!doctype html>")){
+            printLog("查询预约失败");
+            return -1;
+        }else{
+            printLog("查询预约成功");
+            printLog(clientInfo);
+            srom= new Gson().fromJson(clientInfo,ServerReturnOrderMsg.class);
+            if(srom == null)    return -1;
+            num = srom.getRNo();
+            for (int i = 0; i < alRoom.size(); i++) {
+                if(alRoom.get(i).getRNo() == num){
+                    num = i+1;
+                }
             }
-        });*//*
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000*//*,false*//*);//传入false表示加载失败
-            }
-        });
-    }*/
+        }
+        return num;
+    }
 }

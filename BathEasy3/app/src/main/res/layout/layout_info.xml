@@ -31,7 +31,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_margin="5dp"
                         android:background="@drawable/border_all_gray"
-                        android:src="@drawable/icon_touxiang"
+                        android:src="@drawable/avatar_1"
                         android:scaleType="centerCrop"/>
 
                     <TextView

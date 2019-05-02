@@ -3,28 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_bg_Gray">
+
     <RelativeLayout
         android:id="@+id/success_rl_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@color/color_bg_dodgerblue">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="洗  澡"
-            android:textSize="@dimen/bigtitle_size"
             android:layout_margin="@dimen/big_margin"
             android:gravity="center"
-            android:textColor="#FFF"/>
+            android:text="预约情况"
+            android:textColor="#FFF"
+            android:textSize="@dimen/font_big_size" />
 
         <ImageView
             android:id="@+id/success_iv_ewm"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/icon_ewm_white"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/small_margin"/>
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/small_margin"
+            android:src="@drawable/icon_ewm_white" />
     </RelativeLayout>
     <TextView
         android:id="@+id/success_tv_tips"

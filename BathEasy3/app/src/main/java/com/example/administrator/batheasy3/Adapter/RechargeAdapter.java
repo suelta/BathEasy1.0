@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.example.administrator.batheasy3.R;
 import com.example.administrator.batheasy3.bean1.RechargeRecord;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class RechargeAdapter extends ArrayAdapter {
@@ -33,8 +36,11 @@ public class RechargeAdapter extends ArrayAdapter {
         TextView consume_result=(TextView)view.findViewById(R.id.consume_result);
         consume_place.setText(consume.getRWay());
         consume_money.setText(consume.getRMoney()+"");
+        Date date = consume.getRTime();
+        DateFormat bf = new SimpleDateFormat("MM-dd HH:mm");
+        String strtime = bf.format(date);
         consume_time.setText(consume.getRTime()+"");
-        consume_result.setText("成功");
+        consume_result.setText("充值成功");
         return view;
     }
 }

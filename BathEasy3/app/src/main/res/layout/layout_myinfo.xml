@@ -11,16 +11,18 @@
             android:id="@+id/myinfo_ll_tx"
             style="@style/top_layout"
             android:padding="@dimen/small_margin">
-            <TextView style="@style/smalltext1" android:text="头像" />
+            <TextView
+                android:layout_marginLeft="@dimen/small_margin"
+                style="@style/smalltext1" android:text="头像" />
             <ImageView
                 android:id="@+id/myinfo_touxinag"
                 android:layout_width="@dimen/image_medium_sie"
                 android:layout_height="@dimen/image_medium_sie"
                 android:src="@drawable/avatar_1"
-                android:layout_toLeftOf="@+id/myinfo_iv_alter1"
                 android:layout_margin="@dimen/small_margin"
                 android:scaleType="centerCrop"/>
-            <ImageView style="@style/img_arrow"/>
+            <ImageView style="@style/img_arrow"
+                android:layout_marginRight="@dimen/medium_margin"/>
         </LinearLayout>
 
         <!-- 分割线 -->

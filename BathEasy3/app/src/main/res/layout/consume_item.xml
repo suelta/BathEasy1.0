@@ -19,7 +19,7 @@
             android:textColor="@color/colorQblue"
             android:layout_marginLeft="15dip"/>
         <TextView
-            android:text="-"
+            android:text=""
             android:id="@+id/consume_signal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

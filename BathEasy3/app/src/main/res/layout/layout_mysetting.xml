@@ -25,7 +25,9 @@
         <!-- 分割线 -->
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
-        <LinearLayout style="@style/mid_layout">
+        <LinearLayout
+            android:id="@+id/setting_ll_version"
+            style="@style/mid_layout">
             <TextView style="@style/usertext" android:text="检查更新" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>

@@ -20,8 +20,6 @@ import android.widget.TextView;
 import com.example.administrator.batheasy3.Accessory.FileValidator;
 import com.example.administrator.batheasy3.Accessory.HttpUtils;
 import com.example.administrator.batheasy3.Accessory.ImgIOJsonOutputUtils;
-import com.example.administrator.batheasy3.Accessory.LinkHelper;
-import com.example.administrator.batheasy3.Accessory.LinkServer;
 import com.example.administrator.batheasy3.Accessory.WriteToFile;
 import com.example.administrator.batheasy3.InternalWithServer.ServerReturnInfo;
 import com.example.administrator.batheasy3.InternalWithServer.ServerReturnPortrait;
@@ -33,7 +31,7 @@ import com.example.administrator.batheasy3.MyInfo.MyinfoActivity;
 import com.example.administrator.batheasy3.MyInfo.MyoptionActivity;
 import com.example.administrator.batheasy3.MyInfo.MyquestionActivity;
 import com.example.administrator.batheasy3.MyInfo.MysettingActivity;
-import com.example.administrator.batheasy3.MybillinfoAcitvity;
+import com.example.administrator.batheasy3.MyInfo.MybillinfoAcitvity;
 import com.example.administrator.batheasy3.R;
 import com.example.administrator.batheasy3.bean1.Card;
 import com.example.administrator.batheasy3.bean1.UserInfor;
@@ -51,7 +49,6 @@ public class Fragment_info extends Fragment {
     TextView tv_name;
     TextView tv_money;
     TextView tv_score;
-
 
     @Nullable
     @Override
@@ -127,7 +124,7 @@ public class Fragment_info extends Fragment {
         HttpUtils hu = new HttpUtils("GetInfo",new Gson().toJson(uoa).toString());
         hu.start();
         String clientInfo  = hu.getContent();
-        if(clientInfo == null || clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("获取服务端查询用户和卡信息信息失败");
         }else{
             printLog("获取服务端查询用户和卡信息信息成功");
@@ -148,7 +145,7 @@ public class Fragment_info extends Fragment {
         HttpUtils hu = new HttpUtils("GetPortrait",new Gson().toJson(uoa).toString());
         hu.start();
         String clientInfo  = hu.getContent();
-        if(clientInfo == null || clientInfo.equals("")){
+        if(clientInfo == null||clientInfo.equals("")||clientInfo.startsWith("<")){
             printLog("获取服务端获取头像失败");
         }else{
             printLog("获取服务端获取头像成功");
@@ -203,8 +200,6 @@ public class Fragment_info extends Fragment {
             String newPath = pref.getString("portraitpath","");
             Bitmap bitmap = BitmapFactory.decodeFile(newPath);
             iv_touxiang.setImageBitmap(bitmap);
-        }else{
-            iv_touxiang.setImageResource(R.drawable.avatar_1);
         }
     }
 
@@ -224,7 +219,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_cardinfo = getActivity().findViewById(R.id.tablerow_cardinfo);
         LinearLayout ll_cardinfo = getActivity().findViewById(R.id.main_ll_cardinfo);
         ll_cardinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,7 +229,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_bilinfo = getActivity().findViewById(R.id.tablerow_billinfo);
         LinearLayout ll_billinfo = getActivity().findViewById(R.id.main_ll_billinfo);
         ll_billinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,7 +239,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_creditinfo = getActivity().findViewById(R.id.tablerow_credit);
         LinearLayout ll_creditinfo = getActivity().findViewById(R.id.main_ll_cridetinfo);
         ll_creditinfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -257,7 +249,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_question = getActivity().findViewById(R.id.tablerow_question);
         LinearLayout ll_question = getActivity().findViewById(R.id.main_ll_question);
         ll_question.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +258,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_setting = getActivity().findViewById(R.id.tablerow_setting);
         LinearLayout ll_setting = getActivity().findViewById(R.id.main_ll_setting);
         ll_setting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -278,7 +268,6 @@ public class Fragment_info extends Fragment {
             }
         });
 
-//        TableRow tr_option = getActivity().findViewById(R.id.tablerow_option);
         LinearLayout ll_option = getActivity().findViewById(R.id.main_ll_option);
         ll_option.setOnClickListener(new View.OnClickListener() {
             @Override

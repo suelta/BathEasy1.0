@@ -13,6 +13,9 @@ import com.example.administrator.batheasy3.R;
 import com.example.administrator.batheasy3.bean1.Consume;
 import com.example.administrator.batheasy3.bean1.ConsumptionRecord;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ConsumeAdapter extends ArrayAdapter {
@@ -32,7 +35,11 @@ public class ConsumeAdapter extends ArrayAdapter {
         TextView consume_result=(TextView)view.findViewById(R.id.consume_result);
         consume_place.setText(consume.getCAddress());
         consume_money.setText(consume.getCMoney()+"");
-        consume_time.setText(consume.getCTime()+"");
+
+        Date date = consume.getCTime();
+        DateFormat bf = new SimpleDateFormat("MM-dd HH:mm");
+        String strtime = bf.format(date);
+        consume_time.setText(strtime+"");
         consume_result.setText("成功");
         return view;
     }
