@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">BathEasy1.0</string>
+
+    <string name="load_info">澡易，让洗澡更容易</string>
+
+    <!--个人信息字符串-->
+    <string name="my_name">jack</string>
+    <string name="my_sex">男</string>
+    <string name="my_phone">13895959595</string>
+    <string name="my_school">武汉理工大学</string>
+
+    <!--意见反馈-->
+    <string name="option_1">功能异常：功能故障或不可用</string>
+    <string name="option_2">产品建议：我希望哪些地方可以改进</string>
+    <string name="option_3">安全问题：密码、隐私等</string>
+    <string name="option_4">商户终端异常：无法支付等</string>
+    <string name="option_5">其他问题</string>
+
+</resources>

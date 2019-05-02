@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_bg_Gray">
+
+<RelativeLayout
+    android:id="@+id/register_rl_info"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/huge_margin"
+    android:background="#FFF">
+    <TextView
+        android:id="@+id/register_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="昵称"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginLeft="@dimen/huge_margin" />
+
+    <EditText
+        android:id="@+id/register_et_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入昵称"
+        android:layout_below="@+id/register_tv_name"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin" />
+
+    <!--输入电话-->
+    <TextView
+        android:id="@+id/register_tv_tel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="电话"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_et_name"/>
+    <EditText
+        android:id="@+id/register_et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入手机号"
+        android:layout_below="@+id/register_tv_tel"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin" />
+
+    <!--性别选择-->
+    <TextView
+        android:id="@+id/register_tv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="性别"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_et_phone"/>
+
+        <RadioGroup
+            android:id="@+id/register_rg_sex"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/register_tv_sex"
+            android:layout_marginLeft="@dimen/huge_margin">
+            <RadioButton
+                android:id="@+id/register_rb_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="男"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/register_rb_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/huge_margin"
+                android:text="女" />
+        </RadioGroup>
+
+
+    <!--输入密码-->
+    <TextView
+        android:id="@+id/register_tv_school"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学校"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginBottom="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_rg_sex"/>
+
+    <!--选择学校-->
+    <Spinner
+        android:id="@+id/register_sp_school"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register_tv_school"
+        android:background="@color/colotGainsboro"
+        android:entries="@array/whichschool"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        >
+    </Spinner>
+
+
+    <!--输入密码-->
+    <TextView
+        android:id="@+id/register_tv_psw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="密码"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginTop="@dimen/small_margin"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_sp_school"/>
+
+    <EditText
+        android:id="@+id/register_et_psw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请输入密码"
+        android:layout_below="@+id/register_tv_psw"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin" />
+
+    <!--确认密码-->
+    <TextView
+        android:id="@+id/register_tv_psw2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认密码"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_et_psw"/>
+
+    <EditText
+        android:id="@+id/register_et_psw2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="请再次输入密码"
+        android:layout_below="@+id/register_tv_psw2"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin" />
+
+    <TextView
+        android:id="@+id/register_tv_verification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="验证码"
+        android:textColor="#000"
+        android:textSize="@dimen/font_small_size"
+        android:layout_below="@+id/register_et_psw2"
+        android:layout_marginLeft="@dimen/huge_margin" />
+
+
+    <EditText
+        android:id="@+id/register_et_verification"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:hint="请填写验证码"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_below="@+id/register_tv_verification"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:layout_marginBottom="@dimen/huge_margin"/>
+
+    <Button
+        android:id="@+id/register_bt_yzm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/register_tv_verification"
+        android:layout_toRightOf="@+id/register_et_verification"
+        android:background="@color/color_bg_DeepSkyBlue"
+        android:text="获取验证码"
+        android:paddingLeft="@dimen/small_margin"
+        android:paddingRight="@dimen/small_margin"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_medium_size" />
+</RelativeLayout>
+
+    <Button
+        android:id="@+id/regitser_bt_regitser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_bg_DeepSkyBlue"
+        android:text="注   册"
+        android:textColor="#FFF"
+        android:textSize="@dimen/font_medium_size"
+        android:layout_marginTop="@dimen/huge_margin"
+        android:layout_marginLeft="@dimen/huge_margin"
+        android:layout_marginRight="@dimen/huge_margin"
+        android:layout_below="@+id/register_rl_info"/>
+    
+
+</RelativeLayout>

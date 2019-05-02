@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="0">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorLightBlue"
+                android:stretchColumns="0">
+                <TextView
+                    android:id="@+id/cardSchool"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="武汉理工大学"
+                    android:textColor="#fff"
+                    android:textSize="30sp" />
+                <ImageView
+                    android:id="@+id/touxiang"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="45dp"
+                    android:background="@drawable/border_all_gray"
+                    android:src="@drawable/whut" />
+                <TextView
+                    android:id="@+id/cardCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="150dp"
+                    android:text="校园卡 259928"
+                    android:textColor="#fff"
+                    android:textSize="15sp" />
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow>
+            <android.support.v7.widget.GridLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/grid_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ece7e7"
+                app:alignmentMode="alignBounds"
+                app:columnCount="3"
+                app:orientation="horizontal"
+                app:rowCount="2"
+                app:useDefaultMargins="false"
+                tools:context="com.strivestay.gridlayoutdemo.MainActivity">
+
+
+                <ImageView
+                    android:id="@+id/icon_mycard1"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                android:src="@drawable/cardinformation_chongzhi" />
+                <ImageView
+                    android:id="@+id/icon_mycard2"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                    android:src="@drawable/cardinformation_money"/>
+                <ImageView
+                    android:id="@+id/icon_mycard3"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                    android:src="@drawable/cardinformation_chongzhi"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="充值"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="余额"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="care+"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+                <ImageView
+                    android:id="@+id/icon_mycard4"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                    android:src="@drawable/cardinformation_zhangdan" />
+                <ImageView
+                    android:id="@+id/icon_mycard5"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                    android:src="@drawable/cardinformation_guashi"/>
+                <ImageView
+                    android:id="@+id/icon_mycard6"
+                    android:gravity="center"
+                    android:layout_height="30dp"
+                    android:layout_width="30dp"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"
+                    app:layout_gravity="fill"
+                    android:src="@drawable/cardinformation_myself"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="账单"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="挂失"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+                <TextView
+                    android:layout_margin="1dp"
+                    android:background="#ffffff"
+                    android:gravity="center"
+                    android:text="我"
+                    android:textColor="#f68904"
+                    app:layout_columnWeight="1"
+                    app:layout_rowWeight="1"/>
+            </android.support.v7.widget.GridLayout>
+     </TableRow>
+
+
+    </TableLayout>
+
+
+
+
+
+
+</RelativeLayout>

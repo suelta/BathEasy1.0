@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="whichbathroom">
+        <item>一号澡堂</item>
+        <item>二号澡堂</item>
+        <item>三号澡堂</item>
+        <item>四号澡堂</item>
+    </string-array>
+
+    <string-array name="whichschool">
+        <item>武汉理工大学（余家头）</item>
+        <item>武汉理工大学（马房山）</item>
+        <item>武汉理工大学（南湖）</item>
+    </string-array>
+</resources>

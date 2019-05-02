@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/tablelayout_bottom"
+        android:name="com.example.administrator.batheasy.Fragment.Fragment_null"
+        />
+
+    <!--设置底部的样式-->
+    <TableLayout
+        android:id="@+id/tablelayout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:stretchColumns="0,1,2"
+        >
+        <!--缺一个边框-->
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/bottom_icon_info"
+                android:layout_width="@dimen/bottom_icon_size"
+                android:layout_height="@dimen/bottom_icon_size"
+                android:layout_margin="@dimen/small_margin"
+                android:src="@drawable/icon_bottom_info_gray" />
+            <ImageView
+                android:id="@+id/bottom_icon_bath"
+                android:layout_height="@dimen/bottom_icon_size"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_width="@dimen/bottom_icon_size"
+                android:src="@drawable/icon_bottom_bash_gray" />
+            <ImageView
+                android:id="@+id/bottom_icon_email"
+                android:layout_height="@dimen/bottom_icon_size"
+                android:layout_margin="@dimen/small_margin"
+                android:layout_width="@dimen/bottom_icon_size"
+                android:src="@drawable/icon_bottom_email_gray" />
+
+        </TableRow>
+    </TableLayout>
+</RelativeLayout>
