@@ -1,3 +1,1 @@
-this is second txt
-aaaa
-bbbb change by master
+BathEasy3是基于HTTP进行服务器与客服端的数据传送
