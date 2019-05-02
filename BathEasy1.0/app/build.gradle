@@ -31,7 +31,9 @@ dependencies {
     implementation'cn.bmob.android:bmob-sdk:3.5.0'
   //  implementation 'cn.bmob.android:bmob-sdk:3.5.9'
     implementation 'com.github.HotBitmapGG:CreditSesameRingView:V1.0.4'
-
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-21'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-21'//没有使用特殊Header，可以不加这行
+    implementation 'com.android.support:appcompat-v7:25.3.1'//版本 23以上（必须
 
 
 

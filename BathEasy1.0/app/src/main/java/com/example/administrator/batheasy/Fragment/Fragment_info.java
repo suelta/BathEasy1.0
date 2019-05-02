@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
@@ -57,7 +58,8 @@ public class Fragment_info extends Fragment {
 
     private void getInfoServerPersonInfo(){
         LinkServer linkServer = new LinkServer();
-        ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
+
+        ConnectFuture connectFuture = LinkHelper.getConn(linkServer);
         if(connectFuture.isConnected()){
             //查询个人信息
             UserOrderAsk uoa = new UserOrderAsk();
@@ -102,8 +104,9 @@ public class Fragment_info extends Fragment {
 
     //给myinfo页面设置监听器
     public void myinfoEventInit(){
-        TableRow tr_info = getActivity().findViewById(R.id.tablerow_info);
-        tr_info.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_info = getActivity().findViewById(R.id.tablerow_info);
+        LinearLayout ll_info = getActivity().findViewById(R.id.main_ll_info);
+        ll_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MyinfoActivity.class);
@@ -114,8 +117,9 @@ public class Fragment_info extends Fragment {
             }
         });
 
-        TableRow tr_cardinfo = getActivity().findViewById(R.id.tablerow_cardinfo);
-        tr_cardinfo.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_cardinfo = getActivity().findViewById(R.id.tablerow_cardinfo);
+        LinearLayout ll_cardinfo = getActivity().findViewById(R.id.main_ll_cardinfo);
+        ll_cardinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MycardActivity.class);
@@ -124,8 +128,9 @@ public class Fragment_info extends Fragment {
             }
         });
 
-        TableRow tr_bilinfo = getActivity().findViewById(R.id.tablerow_billinfo);
-        tr_bilinfo.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_bilinfo = getActivity().findViewById(R.id.tablerow_billinfo);
+        LinearLayout ll_billinfo = getActivity().findViewById(R.id.main_ll_billinfo);
+        ll_billinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MybillinfoAcitvity.class);
@@ -133,8 +138,9 @@ public class Fragment_info extends Fragment {
             }
         });
 
-        TableRow tr_creditinfo = getActivity().findViewById(R.id.tablerow_credit);
-        tr_creditinfo.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_creditinfo = getActivity().findViewById(R.id.tablerow_credit);
+        LinearLayout ll_creditinfo = getActivity().findViewById(R.id.main_ll_cridetinfo);
+        ll_creditinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MyCreditActivity.class);
@@ -143,8 +149,9 @@ public class Fragment_info extends Fragment {
             }
         });
 
-        TableRow tr_question = getActivity().findViewById(R.id.tablerow_question);
-        tr_question.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_question = getActivity().findViewById(R.id.tablerow_question);
+        LinearLayout ll_question = getActivity().findViewById(R.id.main_ll_question);
+        ll_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MyquestionActivity.class);
@@ -152,18 +159,20 @@ public class Fragment_info extends Fragment {
             }
         });
 
-        TableRow tr_setting = getActivity().findViewById(R.id.tablerow_setting);
-        tr_setting.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_setting = getActivity().findViewById(R.id.tablerow_setting);
+        LinearLayout ll_setting = getActivity().findViewById(R.id.main_ll_setting);
+        ll_setting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MysettingActivity.class);
                 intent.putExtra("userinfo",userInfo);
-                startActivity(intent);
+                startActivityForResult(intent,0x0020);
             }
         });
 
-        TableRow tr_option = getActivity().findViewById(R.id.tablerow_option);
-        tr_option.setOnClickListener(new View.OnClickListener() {
+//        TableRow tr_option = getActivity().findViewById(R.id.tablerow_option);
+        LinearLayout ll_option = getActivity().findViewById(R.id.main_ll_option);
+        ll_option.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),MyoptionActivity.class);
@@ -177,5 +186,17 @@ public class Fragment_info extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         userInfo = ((MainActivity)context).getUserInfo();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 0x0021 && resultCode == 0x0020){
+            String isOrder = data.getStringExtra("isOrder");
+            if(isOrder.equals("true")){
+                getInfoServerPersonInfo();
+                tv_name.setText(userInfo.getUName());
+            }
+        }
     }
 }

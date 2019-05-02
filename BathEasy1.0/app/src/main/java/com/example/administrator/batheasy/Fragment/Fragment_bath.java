@@ -1,5 +1,6 @@
 package com.example.administrator.batheasy.Fragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,11 @@ import com.example.administrator.batheasy.dialogs.RoomBusyInfoActivity;
 import com.example.administrator.batheasy.dialogs.RoomFaultInfoActivity;
 import com.example.administrator.batheasy.dialogs.RoomFreeInfoActivity;
 import com.google.gson.Gson;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.BezierRadarHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 
 import org.apache.mina.core.future.ConnectFuture;
 
@@ -74,6 +81,9 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
     private UserInfor userInfor;
     private LinkServer linkServer;
     private ConnectFuture connectFuture;
+    private Activity activityMain;
+    private Fragment fragmentflag;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -82,12 +92,43 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         gridView= view.findViewById(R.id.bath_gridview);
         buttonorder1 = view.findViewById(R.id.button_order);
         spinner = view.findViewById(bath_spinner);
+        activityMain = getActivity();
+        fragmentflag = getFragmentManager().findFragmentById(R.id.main_fragment);
+        RefreshLayout refreshLayout = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new BezierRadarHeader(getContext()).setEnableHorizontalDrag(true));
+//设置 Footer 为 球脉冲 样式
+        refreshLayout.setRefreshFooter(new BallPulseFooter(getContext()).setSpinnerStyle(SpinnerStyle.Scale));
+       /* final RefreshLayout refreshLayout1 = refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                Message message = new Message();
+                message.what = 0x0011;
+                handler.sendMessage(message);
+                Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
+                refreshlayout.finishRefresh(2000*//*,false*//*);//传入false表示刷新失败
+            }
+
+            @Override
+            public void onRefresh() {
+                Message message = new Message();
+                message.what = 0x0011;
+                handler.sendMessage(message);
+                Toast.makeText(getContext(), "更新成功", Toast.LENGTH_LONG).show();
+            }
+        });*/
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
 
         handler = new Handler(){
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what){
                     case 0x0011:{
+                        printLog("测试：handler里面有吗");
                         getInfoServerBathRoom();
                         /*LinkServer linkServer = new LinkServer();
                         ConnectFuture connectFuture= LinkHelper.getConn(linkServer);
@@ -115,14 +156,13 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
                         gridView.setAdapter(adapter);
                         break;
                     }
-
                 };
             }
         };
 
         initAdapterData();      //初始化Adapter数据
-        bathInit();
-
+        bathInitLinstenr();
+       refreshOneMinute();
 
         return view;
     }
@@ -140,9 +180,8 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
     }
 
 
-    //初始化相关数据
-    public void bathInit(){
-
+    //初始化
+    public void bathInitLinstenr(){
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -207,7 +246,7 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //根据所选的item，访问服务器获取相应的浴室信息
-                getInfoServerBathRoom();
+                printLog("测试：spinner里面有吗");
                 Message message = new Message();
                 message.what = 0x0011;
                 handler.sendMessage(message);
@@ -221,14 +260,6 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
 
     /* 初始化Adapter数据 */
     void initAdapterData(){
-        if(userInfor.getUState().equals("空闲")){
-            buttonorder1.setText("预约");
-            buttonorder1.setTag(false);
-        }else{
-            buttonorder1.setText("我的预约");
-            buttonorder1.setTag(true);
-        }
-
         //初始化spinner
         List<String> myList = new ArrayList<String>();
         for (int i = 0; i < alHouse.size(); i++) {
@@ -237,9 +268,17 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         myAdaptertospinner = new ArrayAdapter<String>(getActivity(), R.layout.bathspinner_item,R.id.bathspinner_tv_item,myList);
         spinner.setAdapter(myAdaptertospinner);
 
-        getInfoServerBathRoom();
+//        getInfoServerBathRoom();
 
+        getInfoServerPersonInfo();
 
+        if(userInfor.getUState().equals("空闲")){
+            buttonorder1.setText("预约");
+            buttonorder1.setTag(false);
+        }else{
+            buttonorder1.setText("我的预约");
+            buttonorder1.setTag(true);
+        }
 
         //初始化datalist相关数据
         if(alRoom != null){
@@ -284,6 +323,7 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
     @Override
     public void onStart() {
         super.onStart();
+        printLog("在onstart里面");
         initAdapterData();      //初始化Adapter数据
     }
 
@@ -366,7 +406,7 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
             ugbr.setCommand("查询某澡堂所有澡间");
             String jsonUserinfo = new Gson().toJson(ugbr);
             connectFuture.getSession().write(jsonUserinfo.toString());//发送json字符串
-
+            printLog("测试：这里是发送了一次！！！！");
             String clientInfo = LinkHelper.getClientInfo(linkServer);//获取返回的字符串
             if(clientInfo.equals("")){
                 printLog("获取服务端查询某澡堂所有澡间信息失败");
@@ -378,6 +418,7 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
         }
     }
 
+    /* 获取用户卡信息 */
     private void getInfoServerPersonInfo(){
         linkServer = new LinkServer();
         connectFuture= LinkHelper.getConn(linkServer);
@@ -400,6 +441,33 @@ public class Fragment_bath extends Fragment implements DialogRoomBusy.DialogList
             }
         }
     }
+
+    //每个1分钟定时刷新一次,请求服务器，获得alroom
+    public void refreshOneMinute () {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                while(true){
+                    try{
+                        if(getFragmentManager().findFragmentById(R.id.main_fragment)!=fragmentflag){//!getActivity().toString().equals(activityMain.toString())
+                            break;
+                        }
+                        Log.w("LoginActivity", "*"+getActivity().toString()+"*" );
+                        Message msg = new Message();
+                        msg.what = 0x0011;
+                        handler.sendMessage(msg);
+                        Thread.sleep(10000);//每隔60s执行一次
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+    }
+
+
 
     /*void initData() {
         //图标

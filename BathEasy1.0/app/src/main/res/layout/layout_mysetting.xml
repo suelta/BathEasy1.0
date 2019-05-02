@@ -8,7 +8,7 @@
     <LinearLayout style="@style/wrap_layout" >
         <!-- 上圆角-->
         <LinearLayout style="@style/top_layout">
-            <TextView style="@style/usertext" android:text="个性签名" />
+            <TextView style="@style/usertext" android:text="隐私" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
@@ -16,13 +16,13 @@
         <View style="@style/bg_line"/>
         <!-- 无圆角-->
         <LinearLayout style="@style/mid_layout">
-            <TextView style="@style/usertext" android:text="我的资料" />
+            <TextView style="@style/usertext" android:text="检查更新" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
         <View style="@style/bg_line"/>
         <!-- 下圆角-->
         <LinearLayout style="@style/bottom_layout">
-            <TextView style="@style/usertext" android:text="消息通知" />
+            <TextView style="@style/usertext" android:text="辅助功能" />
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 
@@ -31,8 +31,10 @@
 
     <!-- 全圆角-->
     <LinearLayout style="@style/wrap_layout">
-        <LinearLayout style="@style/single_layout">
-            <TextView style="@style/usertext" android:text="辅助功能"/>
+        <LinearLayout
+            android:id="@+id/setting_tuichu"
+            style="@style/single_layout">
+            <TextView style="@style/usertext" android:text="退出登录"/>
             <ImageView style="@style/img_arrow"/>
         </LinearLayout>
 

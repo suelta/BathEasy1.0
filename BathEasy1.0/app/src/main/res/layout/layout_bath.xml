@@ -4,6 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/color_bg_gray2"
     android:clickable="true">
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,12 +42,48 @@
         android:background="@color/color_bg_DeepSkyBlue"
         android:entries="@array/whichbathroom">
     </Spinner>
+<TableLayout
+    android:id="@+id/bath_tl_tips"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bath_spinner">
+    <TableRow
+        android:gravity="center">
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_blue"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用中"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_green"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="空闲"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/icon_cir_gray" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不可用"/>
+    </TableRow>
 
+
+</TableLayout>
     <GridView
         android:id="@+id/bath_gridview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bath_spinner"
+        android:layout_below="@+id/bath_tl_tips"
 
         android:columnWidth="80dp"
         android:stretchMode="spacingWidthUniform"
@@ -63,4 +104,5 @@
         android:layout_margin="@dimen/small_margin"
         />
     </RelativeLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </RelativeLayout>

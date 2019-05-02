@@ -19,9 +19,9 @@ public class LoadActivity extends AppCompatActivity {
             @Override
             public void run() {//延时time秒后，将运行如下代码
                 if(lag){
-                    finish();
                     Intent intent = new Intent(LoadActivity.this , LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         } , time);

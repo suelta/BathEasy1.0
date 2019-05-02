@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.administrator.batheasy.Fragment.Fragment_bath;
 import com.example.administrator.batheasy.Fragment.Fragment_email;
@@ -65,8 +64,6 @@ public class MainActivity extends AppCompatActivity {
         public void onClick(View v) {
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
-            Toast toast1=Toast.makeText(getApplicationContext(),"点击了1",Toast.LENGTH_LONG);
-            toast1.show();
             Fragment f = null;
             int flag = -1;
             switch (v.getId()){

@@ -75,7 +75,7 @@ public class LinkServer extends Thread{
      */
     public void initConfig() {
         clientInfo = new String();
-        mAddress = new InetSocketAddress("10.138.80.238", 9999);//连接地址,此数据可改成自己要连接的IP和端口号
+        mAddress = new InetSocketAddress("10.120.48.127", 9999);//连接地址,此数据可改成自己要连接的IP和端口号
         mConnection = new NioSocketConnector();// 创建连接
         // 设置读取数据的缓存区大小
         SocketSessionConfig socketSessionConfig = mConnection.getSessionConfig();

@@ -45,6 +45,7 @@
         android:id="@+id/login_et_psw"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:hint="Password"
         android:layout_below="@+id/login_tv_psw"
         android:layout_marginLeft="@dimen/huge_margin"

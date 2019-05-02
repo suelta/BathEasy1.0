@@ -47,6 +47,10 @@ public class SuccessOrderActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_successorder);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+//        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle("预约情况");
         Log.w("SuccessOrderAcitivity","进入了SuccessOrderAcitivity！");
         Intent intent = getIntent();
         user = (UserInfor) intent.getSerializableExtra("userinfo");
@@ -77,6 +81,7 @@ public class SuccessOrderActivity extends AppCompatActivity {
 //        printLog("initing");
         tv_state.setText(srom.getOrderState()+"");
         tv_roomid.setText(srom.getRNo()+"");
+        tv_roomaddr.setText(user.getUSchool());
         if(flag == 1 || flag == 0){
             bt_cancel.setTag(0);
         }else{

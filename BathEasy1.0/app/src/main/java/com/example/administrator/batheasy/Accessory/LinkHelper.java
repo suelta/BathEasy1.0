@@ -33,6 +33,7 @@ public class LinkHelper {
         linkServer.start();
         ConnectFuture connectFuture;
         long time1 = System.currentTimeMillis();
+
         while(true){
             connectFuture = linkServer.getmConnectFuture();
             if(connectFuture != null && connectFuture.isConnected()){
